@@ -1,0 +1,2581 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerNest — User Manual v1.17.4</title>
+<meta name="description" content="The official user manual for CareerNest — a standalone WordPress job-portal plugin. Covers installation, configuration, features, developer reference, troubleshooting, and full changelog.">
+<meta name="theme-color" content="#FF8200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========================================================================
+   1. DESIGN TOKENS — light mode defaults on :root, dark on [data-theme]
+   ======================================================================== */
+:root {
+  /* Colours — light mode */
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --surface-2: #f3f4f6;
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --text: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --accent: #FF8200;
+  --accent-hover: #e57400;
+  --accent-tint: rgba(255, 130, 0, 0.08);
+  --accent-tint-strong: rgba(255, 130, 0, 0.16);
+  --code-bg: #f3f4f6;
+  --code-text: #1f2937;
+
+  /* Semantic */
+  --info: #0275F4;
+  --info-tint: rgba(2, 117, 244, 0.08);
+  --success: #10B981;
+  --success-tint: rgba(16, 185, 129, 0.08);
+  --warning: #f39c12;
+  --warning-tint: rgba(243, 156, 18, 0.10);
+  --danger: #dc3545;
+  --danger-tint: rgba(220, 53, 69, 0.08);
+
+  /* Typography */
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Sizing */
+  --max-width: 1280px;
+  --sidebar-width: 280px;
+  --content-max: 760px;
+  --topbar-height: 64px;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+
+  /* Code highlighter */
+  --hl-comment: #6b7280;
+  --hl-keyword: #c026d3;
+  --hl-string: #16a34a;
+  --hl-number: #ea580c;
+  --hl-variable: #2563eb;
+  --hl-function: #d97706;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #273244;
+  --border: #334155;
+  --border-strong: #475569;
+  --text: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent: #FF9933;
+  --accent-hover: #ffb060;
+  --accent-tint: rgba(255, 153, 51, 0.10);
+  --accent-tint-strong: rgba(255, 153, 51, 0.20);
+  --code-bg: #1e293b;
+  --code-text: #e2e8f0;
+  --hl-comment: #94a3b8;
+  --hl-keyword: #f0abfc;
+  --hl-string: #86efac;
+  --hl-number: #fdba74;
+  --hl-variable: #93c5fd;
+  --hl-function: #fcd34d;
+}
+
+/* ========================================================================
+   2. BASE / RESET
+   ======================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--topbar-height) + var(--space-4));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; display: block; }
+/* Defensive: inline SVGs without explicit width/height attrs default to their
+   viewBox aspect at 300×150 or 100% — both wreck layouts. Cap them at 1em
+   so an un-styled SVG renders at text size by default. Specificity is
+   intentionally low (single type selector) so any class-based rule wins. */
+svg { width: 1em; height: 1em; flex-shrink: 0; }
+button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+a { color: var(--accent); text-decoration: none; transition: color 0.15s ease; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* Focus rings — accent-coloured, visible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link — first focusable, hidden until focused */
+.skip-link {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: var(--space-3) var(--space-4);
+  z-index: 100;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) 0;
+}
+.skip-link:focus { transform: translateY(0); text-decoration: none; color: #fff; }
+
+/* ========================================================================
+   3. TYPOGRAPHY
+   ======================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+h1 { font-size: 2.5rem; margin-bottom: var(--space-4); letter-spacing: -0.025em; }
+h2 { font-size: 1.875rem; margin: var(--space-12) 0 var(--space-4); letter-spacing: -0.02em; scroll-margin-top: calc(var(--topbar-height) + var(--space-4)); }
+h3 { font-size: 1.5rem; margin: var(--space-10) 0 var(--space-4); scroll-margin-top: calc(var(--topbar-height) + var(--space-4)); }
+h4 { font-size: 1.25rem; margin: var(--space-8) 0 var(--space-3); scroll-margin-top: calc(var(--topbar-height) + var(--space-4)); }
+h5 { font-size: 1.05rem; margin: var(--space-6) 0 var(--space-2); }
+
+section h2:first-child, section h3:first-child { margin-top: 0; }
+
+p { margin-bottom: var(--space-4); color: var(--text-secondary); }
+p strong, li strong { color: var(--text); font-weight: 600; }
+
+ul, ol { padding-left: var(--space-6); margin-bottom: var(--space-4); color: var(--text-secondary); }
+li { margin-bottom: var(--space-2); }
+li::marker { color: var(--text-muted); }
+
+hr { border: none; border-top: 1px solid var(--border); margin: var(--space-10) 0; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  /* Inline code can contain long unbreakable identifiers (e.g.
+     `_oauth_{provider}_avatar_url`) — let them break mid-word
+     on narrow viewports rather than overflowing the paragraph. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+pre code { overflow-wrap: normal; word-break: normal; } /* inside <pre>, preserve formatting */
+
+/* ========================================================================
+   4. LAYOUT
+   ======================================================================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: var(--topbar-height);
+}
+[data-theme="dark"] .topbar { background: rgba(15, 23, 42, 0.85); }
+
+.topbar-inner {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand:hover { color: var(--accent); text-decoration: none; }
+.brand-mark {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent), #ff6a00);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: var(--shadow-md);
+}
+
+.topbar-version {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  border: 1px solid var(--accent-tint-strong);
+  font-weight: 600;
+}
+
+.topbar-search {
+  flex: 1;
+  max-width: 360px;
+  position: relative;
+}
+.topbar-search input {
+  width: 100%;
+  height: 38px;
+  padding: 0 var(--space-3) 0 calc(var(--space-3) + 24px);
+  font: inherit;
+  font-size: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.topbar-search input::placeholder { color: var(--text-muted); }
+.topbar-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+.topbar-search-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.search-results-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+  padding-left: var(--space-2);
+}
+.search-results-count:empty { display: none; }
+
+.topbar-actions { display: flex; align-items: center; gap: var(--space-2); margin-left: auto; }
+
+.icon-btn {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.icon-btn:hover { background: var(--surface); color: var(--accent); }
+.icon-btn svg { width: 20px; height: 20px; }
+
+.mobile-only { display: none; }
+.desktop-only { display: inline-flex; }
+
+/* Main grid: sidebar + main */
+.layout {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  gap: var(--space-12);
+  padding: 0 var(--space-6);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--topbar-height) + var(--space-6));
+  height: calc(100vh - var(--topbar-height) - var(--space-6));
+  overflow-y: auto;
+  padding: var(--space-6) 0;
+  padding-right: var(--space-4);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+.sidebar h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+  padding-left: var(--space-2);
+}
+
+.sidebar nav ul { list-style: none; padding: 0; }
+.sidebar nav > ul > li > a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  border-left: 2px solid transparent;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.sidebar nav > ul > li > a:hover { background: var(--surface); color: var(--text); text-decoration: none; }
+.sidebar nav > ul > li > a.active {
+  color: var(--accent);
+  background: var(--accent-tint);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+.sidebar nav ul ul {
+  padding-left: var(--space-3);
+  margin: var(--space-1) 0 var(--space-2);
+  border-left: 1px solid var(--border);
+}
+.sidebar nav ul ul li a {
+  display: block;
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+}
+.sidebar nav ul ul li a:hover { color: var(--text); text-decoration: none; }
+.sidebar nav ul ul li a.active { color: var(--accent); font-weight: 600; }
+
+main {
+  padding: var(--space-8) 0 var(--space-16);
+  max-width: var(--content-max);
+  min-width: 0;
+}
+
+main section { margin-bottom: var(--space-16); }
+main section h2:first-of-type { margin-top: 0; }
+
+/* ========================================================================
+   5. HERO
+   ======================================================================== */
+.hero {
+  padding: var(--space-12) 0 var(--space-10);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-12);
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: var(--space-5);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+.hero h1 { font-size: 3.25rem; margin-bottom: var(--space-3); }
+.hero-tagline {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-3);
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.hero-description { font-size: 1.05rem; max-width: 680px; margin-bottom: var(--space-8); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+/* ========================================================================
+   6. BUTTONS
+   ======================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.05s;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.btn-secondary:hover { background: var(--surface-2); color: var(--accent); }
+
+/* ========================================================================
+   7. CARDS (intro pillars)
+   ======================================================================== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.card-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--accent-tint);
+  color: var(--accent);
+  display: grid; place-items: center;
+  margin-bottom: var(--space-4);
+}
+.card-icon svg { width: 22px; height: 22px; }
+.card h4 { margin: 0 0 var(--space-2); font-size: 1.1rem; }
+.card p { margin: 0; font-size: 0.9rem; line-height: 1.6; }
+
+/* ========================================================================
+   8. CALLOUTS (Info / Tip / Warning / Danger)
+   ======================================================================== */
+.callout {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  border-radius: var(--radius-md);
+  border-left: 4px solid;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.callout-icon { color: currentColor; margin-top: 2px; }
+.callout-icon svg { width: 20px; height: 20px; display: block; }
+.callout p:last-child { margin-bottom: 0; }
+.callout strong { display: block; margin-bottom: var(--space-1); font-size: 0.95rem; }
+.callout.info { background: var(--info-tint); border-left-color: var(--info); color: var(--text); }
+.callout.info .callout-icon { color: var(--info); }
+.callout.tip { background: var(--success-tint); border-left-color: var(--success); color: var(--text); }
+.callout.tip .callout-icon { color: var(--success); }
+.callout.warning { background: var(--warning-tint); border-left-color: var(--warning); color: var(--text); }
+.callout.warning .callout-icon { color: var(--warning); }
+.callout.danger { background: var(--danger-tint); border-left-color: var(--danger); color: var(--text); }
+.callout.danger .callout-icon { color: var(--danger); }
+
+/* ========================================================================
+   9. CODE BLOCKS
+   ======================================================================== */
+pre {
+  position: relative;
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: var(--space-4) var(--space-5);
+  padding-right: 64px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  scrollbar-width: thin;
+}
+pre code {
+  background: none; border: none; padding: 0;
+  font-size: inherit; color: inherit;
+  font-family: inherit;
+}
+.copy-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.copy-btn:hover { background: var(--bg); color: var(--accent); border-color: var(--accent); }
+.copy-btn svg { width: 14px; height: 14px; }
+.copy-btn.copied { color: var(--success); border-color: var(--success); }
+
+/* Highlighter tokens */
+.hl-comment { color: var(--hl-comment); font-style: italic; }
+.hl-keyword { color: var(--hl-keyword); font-weight: 600; }
+.hl-string { color: var(--hl-string); }
+.hl-number { color: var(--hl-number); }
+.hl-variable { color: var(--hl-variable); }
+.hl-function { color: var(--hl-function); }
+
+/* ========================================================================
+   10. TABLES
+   ======================================================================== */
+.table-wrap {
+  overflow-x: auto;
+  margin: var(--space-5) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+}
+table {
+  /* min-width 100% + width auto lets the table fill its wrapper on
+     desktop, but grow horizontally on narrow viewports so .table-wrap
+     gets a horizontal scrollbar instead of crushing <code> cells. */
+  min-width: 100%;
+  width: auto;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  white-space: normal;
+}
+tbody td:first-child { white-space: nowrap; }
+thead { background: var(--surface); }
+thead th {
+  text-align: left;
+  font-weight: 600;
+  padding: var(--space-3) var(--space-4);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+tbody td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-secondary);
+}
+tbody tr:nth-child(even) td { background: var(--surface); }
+tbody tr:last-child td { border-bottom: none; }
+tbody td:first-child code { white-space: nowrap; }
+
+/* ========================================================================
+   11. ACCORDION (FAQ)
+   ======================================================================== */
+.accordion { margin: var(--space-4) 0; }
+.accordion-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+  background: var(--bg);
+  overflow: hidden;
+}
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1rem;
+  transition: background 0.15s;
+  gap: var(--space-3);
+}
+.accordion-trigger:hover { background: var(--surface); }
+.accordion-trigger[aria-expanded="true"] { background: var(--surface); color: var(--accent); }
+.accordion-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+.accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.accordion-content-inner { padding: 0 var(--space-5) var(--space-5); border-top: 1px solid var(--border); }
+.accordion-content-inner p:first-child { margin-top: var(--space-4); }
+
+/* ========================================================================
+   12. TABS (Configuration section)
+   ======================================================================== */
+.tabs { margin: var(--space-6) 0; }
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-6);
+}
+.tab {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  background: transparent;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.tab:hover { color: var(--text); background: var(--surface); }
+.tab[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.tabpanel { display: none; }
+.tabpanel[data-active] { display: block; }
+.tabpanel h4:first-child { margin-top: 0; }
+
+/* ========================================================================
+   13. TIMELINE (Changelog)
+   ======================================================================== */
+.timeline {
+  position: relative;
+  padding-left: var(--space-8);
+  margin: var(--space-6) 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-2);
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-8) + 4px);
+  top: 8px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--border-strong);
+}
+.timeline-item.current::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint); }
+.timeline-version {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-tint);
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--accent-tint-strong);
+}
+.timeline-item.legacy .timeline-version {
+  background: var(--surface);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+.timeline-body { color: var(--text-secondary); font-size: 0.95rem; }
+.timeline-tags { margin-top: var(--space-2); display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.pill.added { background: var(--success-tint); color: var(--success); }
+.pill.changed { background: var(--info-tint); color: var(--info); }
+.pill.fixed { background: var(--warning-tint); color: var(--warning); }
+.pill.removed { background: var(--danger-tint); color: var(--danger); }
+
+/* ========================================================================
+   14. CHECKLIST + STEP LIST
+   ======================================================================== */
+/* Lists with a leading marker — counter for .steps, checkmark for
+   .checklist. Use position:absolute for the marker rather than grid,
+   so the LI's prose flows naturally as inline content. Grid+inline
+   content interacts badly: text-runs + <strong> + text-runs each get
+   their own anonymous grid item and wrap onto separate rows. */
+.checklist { list-style: none; padding-left: 0; margin: var(--space-4) 0; }
+.checklist li {
+  position: relative;
+  padding: var(--space-2) 0 var(--space-2) calc(20px + var(--space-3));
+  min-height: 24px;
+}
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(var(--space-2) + 2px);
+  width: 20px; height: 20px;
+  background: var(--success-tint);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.steps { counter-reset: step; list-style: none; padding-left: 0; margin: var(--space-4) 0; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: var(--space-3) 0 var(--space-3) calc(28px + var(--space-3));
+  min-height: 32px;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: calc(var(--space-3) + 2px);
+  width: 28px; height: 28px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+/* ========================================================================
+   15. SCREENSHOT PLACEHOLDER
+   ======================================================================== */
+figure {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.screenshot-placeholder {
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(135deg, var(--accent-tint) 0%, transparent 100%),
+    repeating-linear-gradient(45deg, var(--surface), var(--surface) 12px, var(--surface-2) 12px, var(--surface-2) 24px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: var(--space-4);
+}
+.screenshot-placeholder .ph-label {
+  background: var(--bg);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-strong);
+  color: var(--text-secondary);
+  max-width: 80%;
+}
+figcaption {
+  background: var(--surface);
+  color: var(--text-muted);
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ========================================================================
+   16. MISC SECTION HEADERS / BADGES
+   ======================================================================== */
+.section-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--info-tint);
+  color: var(--info);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: 1.6;
+}
+
+/* Highlight match in search */
+mark.search-hit {
+  background: var(--accent-tint-strong);
+  color: var(--text);
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+section.search-hidden { display: none; }
+
+/* ========================================================================
+   17. BACK TO TOP
+   ======================================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 40;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--accent-hover); }
+.back-to-top svg { width: 22px; height: 22px; }
+
+/* ========================================================================
+   18. MOBILE DRAWER
+   ======================================================================== */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.drawer-overlay.open { opacity: 1; visibility: visible; }
+
+/* ========================================================================
+   19. FOOTER
+   ======================================================================== */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: var(--space-10) var(--space-6);
+  margin-top: var(--space-16);
+}
+.site-footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+.site-footer a { color: var(--text-secondary); }
+.site-footer a:hover { color: var(--accent); }
+
+/* ========================================================================
+   20. RESPONSIVE
+   ======================================================================== */
+@media (max-width: 1023px) {
+  .layout { grid-template-columns: 1fr; gap: var(--space-6); }
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    z-index: 70;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    padding: var(--space-6) var(--space-4);
+    overflow-y: auto;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-only { display: inline-flex; }
+  .desktop-only { display: none; }
+  .topbar-search { max-width: none; }
+  main { padding-top: var(--space-6); }
+  .hero { padding: var(--space-8) 0 var(--space-6); }
+  .hero h1 { font-size: 2.25rem; }
+  .hero-tagline { font-size: 1.1rem; }
+}
+
+@media (max-width: 767px) {
+  .topbar-inner { padding: 0 var(--space-4); gap: var(--space-2); }
+  .layout { padding: 0 var(--space-4); }
+  .topbar-search { display: none; }
+  .topbar-search.mobile-visible {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: var(--bg);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border);
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  .hero h1 { font-size: 1.875rem; }
+  .topbar-version { display: none; }
+  pre { padding: var(--space-3); padding-right: 56px; font-size: 0.8rem; }
+  .copy-btn { font-size: 0.7rem; padding: 4px 8px; }
+}
+
+/* ========================================================================
+   21. PRINT
+   ======================================================================== */
+@media print {
+  .topbar, .sidebar, .back-to-top, .drawer-overlay, .copy-btn,
+  .topbar-search, .icon-btn, .skip-link, .hero-cta { display: none !important; }
+  body { color: #000; background: #fff; font-size: 11pt; line-height: 1.5; }
+  .layout { display: block; max-width: none; padding: 0; }
+  main { padding: 0; max-width: none; }
+  a { color: #000; text-decoration: underline; }
+  pre { page-break-inside: avoid; border: 1px solid #ccc; background: #f9f9f9; color: #000; }
+  table { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; color: #000; }
+  section { page-break-before: auto; page-break-inside: auto; }
+  .callout { border: 1px solid #999; background: #fff; }
+  .accordion-content { max-height: none !important; }
+  .accordion-icon { display: none; }
+  .tabpanel { display: block !important; }
+  .tablist { display: none; }
+  .tabpanel::before {
+    content: attr(data-tab-label);
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 1px solid #000;
+    padding-bottom: 0.25rem;
+  }
+  .hero { border-bottom: 1px solid #000; page-break-after: always; padding: 2rem 0; }
+  .hero::after {
+    content: 'Printed from the official CareerNest User Manual — v1.17.4';
+    display: block;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==============================================================
+     TOP BAR
+     ============================================================== -->
+<header class="topbar" role="banner">
+  <div class="topbar-inner">
+    <a href="#hero" class="brand" aria-label="CareerNest user manual home">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>CareerNest</span>
+      <span class="topbar-version">v1.17.4</span>
+    </a>
+
+    <div class="topbar-search" role="search">
+      <svg class="topbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" id="search-input" placeholder="Search the manual…" aria-label="Search the manual">
+      <div class="search-results-count" id="search-results-count" aria-live="polite"></div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="icon-btn mobile-only" id="mobile-menu-toggle" aria-label="Open navigation menu" aria-controls="sidebar" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+
+<!-- ==============================================================
+     LAYOUT (sidebar + main)
+     ============================================================== -->
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar" aria-label="Documentation navigation">
+    <nav>
+      <h4>Contents</h4>
+      <ul>
+        <li><a href="#hero">Overview</a></li>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#installation">Installation &amp; Setup</a></li>
+        <li><a href="#quick-start">Quick Start</a></li>
+        <li><a href="#features">Features Walkthrough</a>
+          <ul>
+            <li><a href="#features-job-seekers">For Job Seekers</a></li>
+            <li><a href="#features-employers">For Employers</a></li>
+            <li><a href="#features-dual-role">Dual-Role Support</a></li>
+            <li><a href="#features-auth">Authentication</a></li>
+            <li><a href="#features-job-board">Job Board &amp; Search</a></li>
+            <li><a href="#features-admin">Administrator Tools</a></li>
+            <li><a href="#features-branding">White-Label Branding</a></li>
+          </ul>
+        </li>
+        <li><a href="#configuration">Configuration</a></li>
+        <li><a href="#developer">Developer Reference</a>
+          <ul>
+            <li><a href="#dev-shortcodes">Shortcodes</a></li>
+            <li><a href="#dev-actions">Action Hooks</a></li>
+            <li><a href="#dev-filters">Template Filters</a></li>
+            <li><a href="#dev-helpers">Helper Functions</a></li>
+            <li><a href="#dev-classes">Helper Classes</a></li>
+            <li><a href="#dev-ajax">AJAX &amp; admin_post</a></li>
+          </ul>
+        </li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="#changelog">Changelog</a></li>
+        <li><a href="#support">Support &amp; Credits</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ==========================================================
+         1. HERO
+         ========================================================== -->
+    <section id="hero" class="hero">
+      <span class="hero-eyebrow">Official User Manual · Version 1.17.4</span>
+      <h1>CareerNest</h1>
+      <p class="hero-tagline">A standalone WordPress job-portal plugin that turns any WordPress site into a fully-featured careers platform — job postings, employer accounts, applicant profiles, and applications — built entirely on WordPress core APIs with zero third-party dependencies.</p>
+      <div class="hero-meta">
+        <span>📘 Last updated: 18 May 2026</span>
+        <span>🏷️ Documents version 1.17.4</span>
+        <span>👤 By Rohan T George · Blue Vineyard</span>
+      </div>
+      <p class="hero-description">This manual walks site owners, hiring teams, and developers through every aspect of CareerNest — from a five-minute first install to extending the plugin with custom theme templates. Every setting, shortcode, hook, and FAQ is documented in full. Use the sidebar (or the search box) to jump straight to what you need.</p>
+      <div class="hero-cta">
+        <a href="#installation" class="btn btn-primary">
+          Get Started
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#features" class="btn btn-secondary">Browse Features</a>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         3. INTRODUCTION
+         ========================================================== -->
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p class="lead">CareerNest is a self-contained job-portal plugin for WordPress. It registers four custom post types (jobs, employers, applicants, applications), three custom user roles, and a complete set of public-facing pages — and ties them together with admin dashboards, approval workflows, email notifications, and a configurable job board.</p>
+      <p>Unlike most job-portal plugins, CareerNest depends on <strong>nothing but WordPress core APIs</strong>. No external services are required to run it, no premium add-ons are needed, and no third-party SDKs ship with the plugin. Google Maps is the only optional external integration — and the plugin degrades gracefully when its API key is absent.</p>
+      <p>The plugin is also <strong>white-label by design</strong>: the platform name, logo, email sender, brand colours, and container width are all overridable from <em>Settings → CareerNest Settings → Branding / Appearance</em>. The "CareerNest" string can disappear from the user-facing UI entirely.</p>
+
+      <h3>Who is this for?</h3>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>For Job Seekers</h4>
+          <p>Build a public profile, upload your resume, apply for jobs, withdraw applications, and track every status change — all from a personal dashboard. Optional Google or LinkedIn sign-in.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h4>For Employers</h4>
+          <p>Register your company, await admin approval, post and manage jobs, review applications with full resume + cover-letter previews, and invite team members. One user can own multiple companies.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>For Site Administrators</h4>
+          <p>Approve employer signups, manage roles, customise email templates from a 3-panel visual editor, configure the job board, import/export CSVs, and white-label every visible string to match your brand.</p>
+        </article>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+        <div>
+          <strong>System requirements</strong>
+          <p>WordPress <strong>6.0+</strong>, PHP <strong>8.0+</strong>. A Google Maps API key is optional but strongly recommended — without it, the location filter on the public job board falls back to a literal substring match on the address string, which can hide jobs whose city or state isn't part of the saved address.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         4. INSTALLATION & SETUP
+         ========================================================== -->
+    <section id="installation">
+      <h2>Installation &amp; Setup</h2>
+      <p>CareerNest is currently distributed as a manual install — it isn't yet listed on the WordPress.org plugin repository. There are two equivalent install paths.</p>
+
+      <h3>Method 1 — ZIP upload via wp-admin</h3>
+      <ol class="steps">
+        <li>From the WordPress admin dashboard, navigate to <strong>Plugins → Add New</strong>.</li>
+        <li>Click <strong>Upload Plugin</strong> at the top of the page.</li>
+        <li>Choose the <code>career-nest.zip</code> archive and click <strong>Install Now</strong>.</li>
+        <li>Once installed, click <strong>Activate</strong>.</li>
+      </ol>
+
+      <h3>Method 2 — Manual file copy</h3>
+      <ol class="steps">
+        <li>Extract <code>career-nest.zip</code> on your machine, or clone the repo directly.</li>
+        <li>Upload the <code>career-nest/</code> folder to <code>wp-content/plugins/</code> via SFTP, SSH, or your hosting file manager. The full path should be <code>wp-content/plugins/career-nest/careernest.php</code>.</li>
+        <li>In WordPress, open <strong>Plugins</strong> and click <strong>Activate</strong> next to CareerNest.</li>
+      </ol>
+
+      <h3>What happens on activation</h3>
+      <p>Activating the plugin runs a one-time setup. You'll see the result of all of these the moment activation completes:</p>
+      <ul class="checklist">
+        <li>Creates 4 custom post types: <code>job_listing</code>, <code>employer</code>, <code>applicant</code>, <code>job_application</code>.</li>
+        <li>Creates 2 taxonomies attached to <code>job_listing</code>: <code>job_category</code> and <code>job_type</code> (Full-time, Part-time, Contract, Casual).</li>
+        <li>Creates 3 custom user roles: <code>aes_admin</code>, <code>employer_team</code>, <code>applicant</code>.</li>
+        <li>Grants plugin-management capabilities (<code>manage_careernest</code>, <code>edit_jobs</code>, <code>edit_employers</code>, …) to <code>administrator</code> and <code>aes_admin</code>.</li>
+        <li>Auto-creates the managed front-end pages: <code>/jobs/</code>, <code>/applicant-dashboard/</code>, <code>/employer-dashboard/</code>, login, register-applicant, register-employer, register-employee, forgot-password, and reset-password.</li>
+        <li>Schedules the daily <code>careernest_expire_jobs</code> WP-Cron event (auto-expires jobs past their closing date).</li>
+        <li>Flushes the WordPress rewrite rules so the custom URLs work: <code>/job/{slug}</code>, <code>/employers/{slug}</code>, <code>/applicants/{slug}</code>.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+        <div>
+          <strong>After activation, see a 404?</strong>
+          <p>If any CPT URL (like <code>/job/test-job/</code>) returns a 404 immediately after activation, visit <strong>Settings → Permalinks</strong> and click <em>Save Changes</em> with no changes. This force-flushes the rewrite rules. It's a one-time fix.</p>
+        </div>
+      </div>
+
+      <h3>On deactivation</h3>
+      <p>Deactivating the plugin unschedules the daily cron event but <strong>does not delete data</strong>. Your jobs, applicants, employers, applications, roles, and settings all remain intact. Reactivating restores everything.</p>
+
+      <h3>On uninstall</h3>
+      <p>If you remove the plugin entirely (via the WordPress <em>Delete</em> button on the Plugins screen), <code>uninstall.php</code> runs. It performs a thorough cleanup:</p>
+      <ul>
+        <li>Clears all plugin options: <code>careernest_options</code>, <code>careernest_pages</code>, <code>careernest_branding</code>, <code>careernest_appearance</code>, <code>careernest_email_templates</code>, <code>careernest_employer_dashboard</code>, <code>careernest_recent_activity</code>.</li>
+        <li>Removes the managed CareerNest pages.</li>
+        <li>Clears the custom post type entries.</li>
+        <li>Removes the three custom roles and their capabilities.</li>
+        <li>Bulk-deletes any leftover OAuth state transients.</li>
+      </ul>
+      <div class="callout danger">
+        <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+        <div>
+          <strong>Uninstall is destructive</strong>
+          <p>If you want to keep your data, choose <strong>Deactivate</strong>, not <strong>Delete</strong>. Uninstall removes everything CareerNest created. Always export your jobs and employers via <em>CareerNest → Import / Export</em> before uninstalling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         5. QUICK START
+         ========================================================== -->
+    <section id="quick-start">
+      <h2>Quick Start (5-Minute Walkthrough)</h2>
+      <p class="lead">The fastest path from zero to a working careers site. Run through these steps once after activation to see the plugin end-to-end.</p>
+      <ol class="steps">
+        <li>
+          <div>
+            <strong>Activate the plugin.</strong>
+            <p>Once activated, you'll see a new top-level menu item — <em>CareerNest</em> — in the wp-admin sidebar, plus settings entries under <em>Settings → CareerNest Settings</em>.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Add a Google Maps API key (optional but recommended).</strong>
+            <p>Visit <em>Settings → CareerNest Settings → General</em> and paste your Maps key into the <em>Google Maps API Key</em> field. This enables Places autocomplete on every address field and the radius search on the public job board.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Set your branding.</strong>
+            <p>Switch to the <em>Branding</em> tab. Set your platform name (e.g. <em>"AES Careers"</em>), upload a logo, and configure the email-from name and address. These propagate everywhere user-facing.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Register a test company.</strong>
+            <p>Sign out of wp-admin and visit <code>/register-employer/</code> in an incognito window. Fill in the form. The company is created with <code>pending</code> status — it doesn't appear on the public job board yet.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Approve the company.</strong>
+            <p>Sign back into wp-admin as administrator. Go to <em>Employers</em>, find your pending company, and approve it. The user receives an approval email (unless you've enabled <em>Disable Emails</em>) and their account is upgraded to <code>employer_team</code> role.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Post your first job.</strong>
+            <p>Sign in as the employer. You'll land on the employer dashboard. Click <em>Post a Job</em>, fill the form (the address field will autocomplete if you set the Maps API key earlier), and publish.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>View it on the public job board.</strong>
+            <p>Open <code>/jobs/</code> in another tab. Your job should appear with all filters working. Try the location radius slider with "Any distance" selected.</p>
+          </div>
+        </li>
+      </ol>
+      <div class="callout tip">
+        <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+        <div>
+          <strong>Skip the approval friction during testing</strong>
+          <p>If you want to bypass the manual approval step while building or testing, enable <em>Disable Emails</em> under <em>Settings → General</em> first — that way no test emails escape to real inboxes while you're iterating.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         6. FEATURES WALKTHROUGH
+         ========================================================== -->
+    <section id="features">
+      <h2>Features Walkthrough</h2>
+      <p class="lead">A guided tour of everything CareerNest can do, grouped by audience. Use the in-page screenshot placeholders as visual anchors — they're sized at 16:9 and ready to be swapped for real captures of your installation.</p>
+
+      <!-- 6.1 -->
+      <section id="features-job-seekers">
+        <h3>For Job Seekers (Applicants)</h3>
+        <p>Applicants get a public-facing profile page (at <code>/applicants/{slug}/</code>) and a private dashboard at <code>/applicant-dashboard/</code>. The profile is fully self-managed via inline edit affordances — no need to switch into wp-admin.</p>
+
+        <figure>
+          <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Applicant dashboard with profile completeness widget</span></div>
+          <figcaption>Applicant dashboard — hero header with avatar, completeness widget, applications table.</figcaption>
+        </figure>
+
+        <h4>The profile builder</h4>
+        <p>Every section of the applicant profile can be edited inline by clicking the small pencil icon that appears on hover. Sections include:</p>
+        <ul>
+          <li><strong>Photo</strong> — drag-to-upload avatar, JPG/PNG/GIF, 5 MB cap, real-MIME validated.</li>
+          <li><strong>Professional title</strong> — short headline shown under the name.</li>
+          <li><strong>Bio / summary</strong> — rich text, sanitised with <code>wp_kses_post()</code>.</li>
+          <li><strong>Work experience</strong> — repeater. Each entry: job title, company, dates, description.</li>
+          <li><strong>Education</strong> — repeater. Institution, qualification, dates.</li>
+          <li><strong>Licenses &amp; certifications</strong> — repeater.</li>
+          <li><strong>Skills</strong> — comma-separated tags.</li>
+          <li><strong>Location</strong> — Places autocomplete + lat/lng + Place ID (used by employers' search).</li>
+          <li><strong>Work-type preferences</strong> — multi-select: Full-time, Part-time, Contract, Casual.</li>
+          <li><strong>Right-to-work status</strong> — for jurisdictions that require disclosure.</li>
+          <li><strong>Contact details</strong> — phone, email (display copy of the user's WP email).</li>
+          <li><strong>Social / portfolio links</strong> — LinkedIn URL plus a repeater of custom links.</li>
+        </ul>
+
+        <h4>Resume management</h4>
+        <p>The sidebar of the dashboard has a dedicated resume widget — upload, replace, or remove. Files are validated by real MIME (not the browser-supplied type, which is spoofable). Accepted: PDF, DOC, DOCX. Maximum size: 10 MB.</p>
+
+        <h4>Applying to a job</h4>
+        <p>From any job listing, click <em>Apply</em>. The apply form lets the applicant attach:</p>
+        <ul>
+          <li>A resume (defaults to the one on file, but can be replaced for this application).</li>
+          <li>A free-text cover letter.</li>
+          <li>An optional <strong>cover-letter file</strong> (PDF/DOC).</li>
+          <li>Up to <strong>5 additional documents</strong> (portfolio, references, work samples).</li>
+        </ul>
+
+        <h4>Bookmarks &amp; status notifications</h4>
+        <p>The bookmark icon on every job card is one-click toggle. Bookmarks appear in a dedicated tab on the applicant dashboard. Applicants receive an email any time their application status changes — submitted → under review → shortlisted → interview → offer → hired / rejected / withdrawn / archived.</p>
+
+        <h4>Profile completeness widget</h4>
+        <p>The dashboard sidebar shows a circular progress meter calculated from <code>Profile_Helper::calculate_applicant_completeness()</code>. Missing sections are listed below the meter, each with an "Edit" link that scrolls the user to the relevant section anchor on the public profile page.</p>
+      </section>
+
+      <!-- 6.2 -->
+      <section id="features-employers">
+        <h3>For Employers / Hiring Companies</h3>
+        <p>Employers get a public company page (<code>/employers/{slug}/</code>) and a private management dashboard at <code>/employer-dashboard/</code>. The dashboard is the operational hub: post jobs, review applications, manage team, update branding.</p>
+
+        <figure>
+          <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Employer dashboard hero with multi-company switcher</span></div>
+          <figcaption>Employer dashboard — multi-company switcher pill, profile completeness, recent jobs, recent applications.</figcaption>
+        </figure>
+
+        <h4>Registration &amp; approval workflow</h4>
+        <p>Anyone can submit a company at <code>/register-employer/</code>. The submission creates a <code>pending</code> employer post and a non-published user account in the <code>employer_team</code> role. Admins review the submission in wp-admin under <em>Employers</em>:</p>
+        <ul>
+          <li><strong>Approve</strong> — flips the employer to <code>approved</code> + <code>publish</code>, sends a welcome email with login link.</li>
+          <li><strong>Decline</strong> — admin must enter a reason, which is included in the rejection email.</li>
+          <li><strong>Request more info</strong> — admin writes a free-text message asking for clarification. The applicant gets an email with the message and a link back to the form to amend the submission.</li>
+        </ul>
+
+        <h4>Company profile builder</h4>
+        <p>Every section is inline-editable from the public profile page (when signed in as an owner). Sections include: logo, tagline, mission, spotlight (a feature highlight), industry, company size, founded year, specialities, location (with Places autocomplete), website, contact email, phone, and the long-form "About" + "What we're interested in working on" blocks.</p>
+
+        <h4>Posting a job</h4>
+        <p>From the employer dashboard, <em>Post a Job</em> opens the job form. The form is organised into clearly-labelled sections:</p>
+        <ul>
+          <li><strong>Basics</strong> — title, category, type, location (with autocomplete + "Pick on map" modal), remote-position flag.</li>
+          <li><strong>Vacancy Details</strong> — the main job description.</li>
+          <li><strong>Essential Criteria</strong> — must-have requirements.</li>
+          <li><strong>Desirable Criteria</strong> — nice-to-haves.</li>
+          <li><strong>Responsibilities</strong> — bulleted day-to-day duties.</li>
+          <li><strong>How to Apply</strong> — custom instructions to the candidate.</li>
+          <li><strong>Salary</strong> — either a single value or a range; configurable per job.</li>
+          <li><strong>Dates</strong> — opening date (defaults to publish date) and closing date (auto-expires past this).</li>
+          <li><strong>External apply</strong> — optional URL. When enabled, "Apply" buttons link to that URL and the internal apply form is bypassed.</li>
+        </ul>
+        <div class="callout warning">
+          <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <div>
+            <strong>Pick from the autocomplete — don't manually edit</strong>
+            <p>When entering an address, always select a result from the Places autocomplete dropdown. Typing or pasting an address manually <em>clears</em> the saved latitude/longitude (since the plugin can't be certain the new text still matches the previously-resolved place). Without coordinates, the job won't appear in radius-based search results.</p>
+          </div>
+        </div>
+
+        <h4>Application management</h4>
+        <p>The Applications tab on the dashboard lists every application received across all of the company's jobs. Each row shows the applicant name, the job they applied to, the submission date, and the current status. Click any row to see the full application — applicant profile snapshot, attached resume, cover letter (text + file), and any additional documents — all previewed inline. From the same view, update the status, add internal notes, and contact the applicant.</p>
+
+        <h4>Team management</h4>
+        <p>The Team tab lets a primary owner invite additional team members. Invitees receive an email and complete signup via a dedicated form. Once joined, they share access to the same company. The primary owner can also <strong>transfer ownership</strong> to another team member, which atomically swaps the <code>_user_id</code> primary-owner pointer.</p>
+
+        <h4>Multi-owner / multi-company</h4>
+        <p>One user can be a co-owner of any number of companies, and one company can have multiple owners. When a user is linked to more than one company, an active-company switcher pill appears on the dashboard hero — clicking it lists all linked companies and lets them swap which one they're managing right now.</p>
+
+        <h4>Position filled</h4>
+        <p>Each job has a "Position filled" toggle. Once set, the job is removed from the public board automatically (without needing to set the closing date in the past). Useful when a vacancy fills mid-cycle.</p>
+      </section>
+
+      <!-- 6.3 -->
+      <section id="features-dual-role">
+        <h3>Dual-Role Support <span class="section-badge">1.15.0+</span></h3>
+        <p>A single WordPress user can hold any combination of CareerNest roles plus standard WP roles — for example, <code>applicant</code> + <code>employer_team</code> + <code>administrator</code> all on one account. The plugin provides a coherent UX for these dual-role users: a mode switcher, upgrade-mode forms, and discovery affordances that nudge a user from one role into the other.</p>
+
+        <figure>
+          <div class="screenshot-placeholder"><span class="ph-label">Screenshot: "Viewing as:" mode switcher pill on a dashboard hero</span></div>
+          <figcaption>Mode switcher — a single click flips between the applicant and employer dashboards.</figcaption>
+        </figure>
+
+        <h4>Mode switcher</h4>
+        <p>When a user has both <code>applicant</code> and <code>employer_team</code> roles, a "Viewing as: <em>Applicant</em> ▼" pill appears in both dashboard heroes. Clicking it switches modes — under the hood, an AJAX call (<code>cn_switch_dashboard_mode</code>) writes <code>_active_dashboard_mode</code> user meta and reloads to the other dashboard. The login-redirect honours this preference, so a user who last switched to "Employer" lands back on the employer dashboard the next time they sign in.</p>
+
+        <h4>Upgrade-mode register forms</h4>
+        <p>When a logged-in applicant visits <code>/register-employer/</code>, the form detects the existing account and renders in <strong>upgrade mode</strong>: email is locked (no re-entry), password is hidden (the user is already authenticated), social buttons are hidden, and the submission adds the <code>employer_team</code> role to the existing user rather than creating a new account. The reverse works identically for employer-to-applicant upgrades.</p>
+
+        <h4>Discovery affordances</h4>
+        <p>Users only become aware of dual-role if we tell them. Three nudges:</p>
+        <ul>
+          <li><strong>Dashboard sidebar cards.</strong> "Apply for jobs too →" on the employer dashboard (if no applicant role). "Hiring? Post a job →" on the applicant dashboard (if no employer role).</li>
+          <li><strong>Apply-button intercept.</strong> If an employer-only user clicks Apply on a job listing, an intercept card appears: "You're signed in as an employer. Add an applicant profile to apply →" — clicking takes them to the upgrade-mode register form.</li>
+          <li><strong>OAuth intent.</strong> Signing in via Google/LinkedIn from one of the register pages passes an <code>intent=add_employer</code> (or <code>add_applicant</code>) parameter through the OAuth flow, so the post-login redirect lands on the right upgrade flow rather than the default dashboard.</li>
+        </ul>
+
+        <div class="callout info">
+          <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+          <div>
+            <strong>Granting dual roles from admin</strong>
+            <p>An administrator can assign any combination of CN-managed roles to a user via <em>Users → Manage Roles</em>. This is the canonical role-management UI — see <a href="#features-admin">Administrator Tools</a> below.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6.4 -->
+      <section id="features-auth">
+        <h3>Authentication Options</h3>
+        <p>CareerNest supports four authentication paths, all of which can coexist on the same site:</p>
+
+        <h4>Standard email + password</h4>
+        <p>The default. Sign-up via <code>/register-applicant/</code> or <code>/register-employer/</code>. Sign-in via <code>/login/</code> or the <code>[careernest_login]</code> shortcode placed on any page.</p>
+
+        <h4>Google OAuth</h4>
+        <p>Enable under <em>Settings → General → Social Login</em>. You'll need a Google Cloud Console project with OAuth 2.0 credentials configured. The plugin handles three OAuth paths automatically:</p>
+        <ul>
+          <li><strong>New user, picks Google</strong> — lands on a role-chooser page after Google authentication, then completes signup.</li>
+          <li><strong>Existing user, signs in via Google</strong> — if the Google email matches a WP user, accounts auto-link.</li>
+          <li><strong>Logged-in user, clicks "Connect Google"</strong> from the Linked Accounts panel on their dashboard — links Google to their existing account for future passwordless sign-in.</li>
+        </ul>
+
+        <h4>LinkedIn OAuth</h4>
+        <p>Same architecture as Google. Configure under <em>Settings → General → Social Login</em>. LinkedIn's permissions model is more restrictive than Google's — only basic profile + email scopes are requested.</p>
+
+        <h4>Two-Factor Authentication</h4>
+        <p>If a third-party 2FA plugin is installed (e.g. the official <em>Two Factor</em> plugin or <em>Wordfence Login Security</em>), the Linked Accounts panel surfaces a "Set up 2FA" link that points to the standard wp-admin profile route. Enable the row's visibility under <em>Settings → Social Login → Show 2FA in Linked Accounts</em>. The plugin doesn't ship its own 2FA implementation — it integrates with whatever you already use.</p>
+
+        <h4>Password reset / account deletion</h4>
+        <p>The <code>/forgot-password/</code> and <code>/reset-password/</code> pages are auto-created on activation and use the standard WP password-reset email flow (routed through <code>Mailer::*</code> for the disable-emails-during-dev override). Account deletion is request-based — users submit a deletion request from their dashboard, an admin reviews and approves it in wp-admin, and only then is the WP user actually deleted (GDPR Article 17 friendly).</p>
+
+        <h4>Personal Data Exporter / Eraser</h4>
+        <p>The plugin registers handlers with the standard WP Personal Data Exporter and Eraser (under <em>Tools → Export Personal Data</em> / <em>Erase Personal Data</em>). OAuth-linked metadata (provider ID, email at provider, avatar URL, link timestamp) is included in both the export bundle and the erase pass.</p>
+      </section>
+
+      <!-- 6.5 -->
+      <section id="features-job-board">
+        <h3>Job Board &amp; Search</h3>
+        <p>The public job board lives at <code>/jobs/</code> (the page slug is configurable under <em>Settings → Pages</em>). It's a single-page experience powered by AJAX — filter changes refresh the result set without a full page reload.</p>
+
+        <figure>
+          <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Public job board with filter sidebar and result cards</span></div>
+          <figcaption>The public job board — keyword + filters in the sidebar, paginated results in the main column.</figcaption>
+        </figure>
+
+        <h4>Available filters</h4>
+        <ul>
+          <li><strong>Keyword</strong> — searches job title + description content.</li>
+          <li><strong>Category</strong> — taxonomy filter, multi-select.</li>
+          <li><strong>Job type</strong> — Full-time, Part-time, Contract, Casual.</li>
+          <li><strong>Location</strong> — Places autocomplete on the input. Hidden lat/lng power the radius search.</li>
+          <li><strong>Radius</strong> — slider, 0 to 100 km. <em>0 = "Any distance"</em> shows every job sorted by distance from the searched location (no geographic cut-off).</li>
+          <li><strong>Employer</strong> — filter to a specific company.</li>
+          <li><strong>Salary range</strong> — dual-handle slider.</li>
+          <li><strong>Date posted</strong> — last 24 h, week, month, all time.</li>
+        </ul>
+
+        <h4>Distance badges</h4>
+        <p>When the user provides a location, every result card gets a distance badge ("5 km from your search", "320 km away") computed via the Haversine formula on the server. Results are sorted by distance ascending unless another sort is selected.</p>
+
+        <h4>Bookmarks, view tracking, external-click tracking</h4>
+        <p>Logged-in users can bookmark jobs from the result card or the single-job page. View counts and external-click counts (for jobs configured with an external apply URL) are tracked transparently. Aggregated stats are visible to the owning employer on the employer dashboard.</p>
+
+        <h4>Configurable layout</h4>
+        <p>Under <em>Settings → General → Job Listing Filters</em> you can:</p>
+        <ul>
+          <li>Move the filter column from <em>sidebar</em> to <em>top</em>.</li>
+          <li>Choose 1, 2, or 3 columns for result cards.</li>
+          <li>Enable a map-view toggle (renders results on an embedded Google Map).</li>
+          <li>Drag-reorder which filters appear, and toggle individual filters' visibility.</li>
+        </ul>
+      </section>
+
+      <!-- 6.6 -->
+      <section id="features-admin">
+        <h3>Administrator Tools</h3>
+        <p>Site administrators (anyone holding <code>manage_options</code>) get a complete admin surface in wp-admin. Power users with the custom <code>aes_admin</code> role get access to everything CareerNest-related <em>without</em> being able to manage plugins, themes, or the WordPress core.</p>
+
+        <figure>
+          <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Users → Manage Roles grid with toggle buttons</span></div>
+          <figcaption>The Manage Roles page — a bird's-eye view of every user's role configuration, with click-to-toggle controls.</figcaption>
+        </figure>
+
+        <h4>Users → Manage Roles <span class="section-badge">1.17.0</span></h4>
+        <p>A dedicated page (under the standard <em>Users</em> menu) for granting and revoking CN-managed roles. Built as an extended <code>WP_List_Table</code>:</p>
+        <ul>
+          <li>Every user is a row, every CN-managed role is a column.</li>
+          <li>Each cell is a click-to-toggle button — ✓ (granted), ✗ (not granted), spinner (in progress).</li>
+          <li>Search filter (display name + email), role filter dropdown (All / Has applicant / Has employer / Dual-role / None), pagination (20 per page).</li>
+          <li><strong>Last-administrator guard</strong> — the page refuses to remove <code>administrator</code> from the last admin on the site.</li>
+          <li><strong>Self-edit guard</strong> — your own row's cells are disabled (preventing accidental self-demotion).</li>
+          <li>Granting <code>applicant</code> for the first time auto-creates an applicant CPT stub so the user has data to render on their dashboard.</li>
+        </ul>
+
+        <h4>Defensive role-wipe protection <span class="section-badge">1.17.2</span></h4>
+        <p>WordPress's standard user-edit form calls <code>$user-&gt;set_role($primary)</code> on every save — even when the role dropdown wasn't touched — which destructively wipes all roles and sets exactly one. The plugin hooks <code>set_user_role</code> at priority 999 to restore any CN-managed roles that the wipe removed. This means roles granted via Manage Roles survive ordinary user-profile edits.</p>
+
+        <h4>Linked Employers panel</h4>
+        <p>On the standard user-edit screen (<em>Users → All Users → Edit</em>), users in the <code>employer_team</code> role see a "Linked Employers" panel. It lists every company they're currently linked to and provides add/remove controls. Behind the scenes, this uses the same AJAX endpoints as the employer-side meta box.</p>
+
+        <h4>Per-CPT meta boxes</h4>
+        <p>Every custom post type has tailored meta boxes in its edit screen:</p>
+        <ul>
+          <li><strong>job_listing</strong> — Job Details (location, salary, dates, content sections, employer assignment).</li>
+          <li><strong>employer</strong> — Employer Details, Company Owners, Team Management, Employer Team Members.</li>
+          <li><strong>applicant</strong> — Applicant Details, Skills, Work Preferences.</li>
+          <li><strong>job_application</strong> — Application Details (with resume + cover letter + extra documents previews), Application Status.</li>
+        </ul>
+
+        <h4>Custom admin list columns + quick filters</h4>
+        <p>The admin list tables for jobs, employers, applicants, and applications have custom columns (logo, location, status, employer name, etc.) and quick-filter dropdowns above the table.</p>
+
+        <h4>Email template visual editor <span class="section-badge">1.9.0</span></h4>
+        <p>Under <em>Settings → CareerNest Settings → Email Templates</em>: a 3-panel UI — left sidebar with the 15 templates, centre column with a TinyMCE editor, right column with a live-preview iframe. Saves are AJAX per-template. Available actions: <em>Save</em>, <em>Reset to default</em>, <em>Send test email</em> (to the logged-in admin's address).</p>
+
+        <h4>Import / Export</h4>
+        <p>Under <em>CareerNest → Import / Export</em>: download a CSV template, populate it, upload it. Supported for both jobs and employers. The import is transactional — if any row fails validation, no rows are committed.</p>
+
+        <h4>Dev-mode email kill switch</h4>
+        <p>Under <em>Settings → General → Disable Emails</em>. When enabled, every email sent by the plugin is logged to <code>error_log</code> instead of being delivered. A persistent warning banner appears at the top of wp-admin to remind you it's on. Essential for testing — toggle it off before going live.</p>
+
+        <h4>Debug: Show Coordinates</h4>
+        <p>Also under <em>Settings → General</em>. When enabled, every job card on the public board displays the saved latitude/longitude. Useful for diagnosing the most common location-search bug — jobs saved without coordinates.</p>
+      </section>
+
+      <!-- 6.7 -->
+      <section id="features-branding">
+        <h3>White-Label Branding</h3>
+        <p>CareerNest is built to disappear behind your brand. Every visible string and colour can be overridden from Settings.</p>
+
+        <h4>Platform identity</h4>
+        <ul>
+          <li><strong>Platform name</strong> — replaces "CareerNest" everywhere user-facing. Set under <em>Branding → Platform Name</em>.</li>
+          <li><strong>Platform logo</strong> — uploaded via the standard WP media library. Used in headers, emails, and the login page.</li>
+        </ul>
+
+        <h4>Email branding</h4>
+        <ul>
+          <li><strong>Email From Name</strong> — sender display name. Defaults to <em>"The {Platform Name} Team"</em>.</li>
+          <li><strong>Email From Address</strong> — sender address. Defaults to the WP admin email.</li>
+          <li><strong>Support Email</strong> — surfaced inside email bodies via the <code>{{contact_email}}</code> placeholder. Defaults to WP admin email.</li>
+        </ul>
+        <p>The <code>wp_mail_from</code> / <code>wp_mail_from_name</code> filters are <em>scoped</em> — they only apply during <code>Mailer::*</code> calls (guarded by a static flag), so any other plugin sending emails on the same site is unaffected.</p>
+
+        <h4>Brand colours via CSS variables</h4>
+        <p>Set under <em>Appearance</em>:</p>
+        <ul>
+          <li>Primary button colour (and an auto-derived hover state)</li>
+          <li>Secondary button colour</li>
+          <li>Primary text colour (headings, labels)</li>
+          <li>Secondary text colour (descriptions, meta)</li>
+          <li>Success / warning / danger badge colours</li>
+          <li>Container width (max-width override for the layout grid)</li>
+        </ul>
+        <p>These emit as CSS custom properties on <code>:root</code> across <strong>every</strong> front-end page (not just CareerNest pages), so your theme can pick them up via <code>var(--cn-primary-btn, #FF8200)</code> if you want to share the same brand tokens.</p>
+      </section>
+    </section>
+
+    <!-- ==========================================================
+         7. CONFIGURATION
+         ========================================================== -->
+    <section id="configuration">
+      <h2>Configuration / Settings</h2>
+      <p class="lead">CareerNest stores its settings across five WordPress options, surfaced through five tabs at <em>Settings → CareerNest Settings</em>. Every setting is documented below with its default value.</p>
+
+      <div class="tabs" role="region" aria-label="Settings configuration">
+        <div class="tablist" role="tablist" aria-label="Settings tabs">
+          <button class="tab" role="tab" aria-selected="true" aria-controls="tab-general" id="tabbtn-general" tabindex="0">General</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="tab-branding" id="tabbtn-branding" tabindex="-1">Branding</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="tab-appearance" id="tabbtn-appearance" tabindex="-1">Appearance</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="tab-emails" id="tabbtn-emails" tabindex="-1">Email Templates</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="tab-employer-dash" id="tabbtn-employer-dash" tabindex="-1">Employer Dashboard</button>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="tab-general" aria-labelledby="tabbtn-general" data-active data-tab-label="General Settings">
+          <h4>General → <code>careernest_options</code></h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>maps_api_key</code></td><td>empty</td><td>Google Maps API key. Without it, location features degrade to LIKE substring match on the address string.</td></tr>
+              <tr><td><code>maps_countries</code></td><td>empty array</td><td>Restricts Places autocomplete to selected countries. Built-in bounds for AU, CA, NZ, US, GB, DE, FR. Multi-select.</td></tr>
+              <tr><td><code>debug_show_coordinates</code></td><td>off</td><td>Shows lat/lng on every job card for diagnosing geo issues.</td></tr>
+              <tr><td><code>disable_emails</code></td><td>off</td><td>Dev-mode kill switch. Emails logged to <code>error_log</code> instead of sent. Shows a warning banner in admin.</td></tr>
+            </tbody>
+          </table></div>
+
+          <h4>Social Login (in the General tab)</h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>enable_google_login</code></td><td>off</td><td>Toggle Google OAuth.</td></tr>
+              <tr><td><code>google_client_id</code> / <code>google_client_secret</code></td><td>empty</td><td>From Google Cloud Console → APIs &amp; Services → Credentials.</td></tr>
+              <tr><td><code>enable_linkedin_login</code></td><td>off</td><td>Toggle LinkedIn OAuth.</td></tr>
+              <tr><td><code>linkedin_client_id</code> / <code>linkedin_client_secret</code></td><td>empty</td><td>From LinkedIn Developer Portal → your app → Auth tab.</td></tr>
+              <tr><td><code>enable_oauth_avatars</code></td><td>off</td><td>When on, profile photo is pulled from the OAuth provider on link.</td></tr>
+              <tr><td><code>enable_2fa_row</code></td><td>off</td><td>Shows a "Set up 2FA" row in the Linked Accounts panel on both dashboards.</td></tr>
+            </tbody>
+          </table></div>
+
+          <h4>Job Listing Filters (in the General tab)</h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>filter_position</code></td><td>sidebar</td><td>Either <code>sidebar</code> or <code>top</code>.</td></tr>
+              <tr><td><code>job_listing_columns</code></td><td>1</td><td>1, 2, or 3 columns for result cards.</td></tr>
+              <tr><td><code>enable_map_view</code></td><td>off</td><td>Adds a map-view toggle on the job board.</td></tr>
+              <tr><td><code>filters_order</code></td><td>preset</td><td>Drag-sortable list with visibility toggles for: search, category, type, location, employer, salary, date.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="tab-branding" aria-labelledby="tabbtn-branding" aria-hidden="true" data-tab-label="Branding Settings">
+          <h4>Branding → <code>careernest_branding</code></h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>platform_name</code></td><td>"CareerNest"</td><td>Replaces "CareerNest" in user-facing text throughout the platform.</td></tr>
+              <tr><td><code>platform_logo</code></td><td>empty</td><td>Media library uploader. Used in headers, emails, and login.</td></tr>
+              <tr><td><code>email_from_name</code></td><td>empty → "The {Platform Name} Team"</td><td>Sender display name in plugin emails.</td></tr>
+              <tr><td><code>email_from_address</code></td><td>empty → WP admin email</td><td>Sender address in plugin emails.</td></tr>
+              <tr><td><code>support_email</code></td><td>empty → WP admin email</td><td>Surfaced in email content via the <code>{{contact_email}}</code> placeholder.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="tab-appearance" aria-labelledby="tabbtn-appearance" aria-hidden="true" data-tab-label="Appearance Settings">
+          <h4>Appearance → <code>careernest_appearance</code></h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>primary_btn_color</code></td><td><code>#0073aa</code></td><td>Main action buttons (Post Job, Publish, etc.).</td></tr>
+              <tr><td><code>secondary_btn_color</code></td><td><code>#6c757d</code></td><td>Secondary action buttons (Save Draft, Cancel).</td></tr>
+              <tr><td><code>primary_text_color</code></td><td><code>#333333</code></td><td>Main text colour (headings, labels).</td></tr>
+              <tr><td><code>secondary_text_color</code></td><td><code>#666666</code></td><td>Secondary text (descriptions, meta info).</td></tr>
+              <tr><td><code>success_badge_color</code></td><td><code>#10B981</code></td><td>Active jobs, hired status, success messages.</td></tr>
+              <tr><td><code>warning_badge_color</code></td><td><code>#f39c12</code></td><td>Draft jobs, reviewed applications, warnings.</td></tr>
+              <tr><td><code>danger_badge_color</code></td><td><code>#dc3545</code></td><td>Expired jobs, rejected applications, delete buttons.</td></tr>
+              <tr><td><code>container_width</code></td><td>not specified</td><td>Max-width override for the layout grid.</td></tr>
+            </tbody>
+          </table></div>
+          <p>Colours emit as CSS variables on every front-end page: <code>--cn-primary-btn</code>, <code>--cn-primary-btn-hover</code> (auto-derived), <code>--cn-primary-btn-rgb</code> (comma-separated, for <code>rgba()</code> use), <code>--cn-secondary-btn</code>, <code>--cn-primary-text</code>, <code>--cn-secondary-text</code>, <code>--cn-success</code>, <code>--cn-warning</code>, <code>--cn-danger</code>, <code>--cn-container-width</code>.</p>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="tab-emails" aria-labelledby="tabbtn-emails" aria-hidden="true" data-tab-label="Email Templates">
+          <h4>Email Templates → <code>careernest_email_templates</code></h4>
+          <p>This tab uses a custom 3-panel visual editor (sidebar + TinyMCE + live-preview iframe) instead of the standard WordPress settings rendering. Saves are AJAX per-template. The 15 registered templates:</p>
+          <ol>
+            <li><strong>Applicant welcome</strong> — sent on applicant account creation.</li>
+            <li><strong>Employer signup acknowledgement</strong> — confirms receipt of the employer registration.</li>
+            <li><strong>Employer approved</strong> — sent when an admin approves the employer.</li>
+            <li><strong>Employer declined</strong> — sent when an admin declines, including the reason.</li>
+            <li><strong>Employer info-requested</strong> — sent when an admin requests more information.</li>
+            <li><strong>Employee / team-member signup acknowledgement</strong> — confirms a team-member join request.</li>
+            <li><strong>Employee approved</strong> — confirms the join.</li>
+            <li><strong>Employee declined</strong> — declines the join.</li>
+            <li><strong>Admin notification (generic)</strong> — system notification to site admins.</li>
+            <li><strong>Team member added (to existing employer)</strong> — confirms the new member to the team.</li>
+            <li><strong>Team access removed</strong> — notifies a user that they've been removed from a team.</li>
+            <li><strong>Company ownership transfer initiated</strong> — sent to the recipient of an ownership transfer.</li>
+            <li><strong>Company ownership transfer completed</strong> — confirms the transfer once accepted.</li>
+            <li><strong>Application status changed</strong> — notifies the applicant when status changes.</li>
+            <li><strong>Application withdrawn</strong> — confirms a withdrawal.</li>
+          </ol>
+          <p><code>{{variable}}</code> placeholders are replaced server-side. Default variables available in every template: <code>{{site_name}}</code>, <code>{{site_url}}</code>, <code>{{contact_email}}</code>, <code>{{current_year}}</code>, <code>{{jobs_url}}</code>. Per-template variables are listed inline in the editor sidebar.</p>
+        </div>
+
+        <div class="tabpanel" role="tabpanel" id="tab-employer-dash" aria-labelledby="tabbtn-employer-dash" aria-hidden="true" data-tab-label="Employer Dashboard Settings">
+          <h4>Employer Dashboard → <code>careernest_employer_dashboard</code></h4>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>recent_jobs_count</code></td><td>5</td><td>How many recent jobs to show on the dashboard. 3–20.</td></tr>
+              <tr><td><code>recent_apps_count</code></td><td>5</td><td>How many recent applications to show on the dashboard. 3–20.</td></tr>
+              <tr><td><code>welcome_message</code></td><td>empty</td><td>Free-text shown at the top of the employer dashboard. Leave empty to use the default greeting.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3>Auto-managed options (not user-editable)</h3>
+      <p>Two additional options are populated automatically and shouldn't be edited by hand:</p>
+      <ul>
+        <li><code>careernest_pages</code> — created on activation. A page-slug → page-ID map for every managed page (jobs, login, applicant-dashboard, employer-dashboard, register pages, password-reset pages). The plugin uses this map in its <code>template_include</code> filter to swap in the right template per page.</li>
+        <li><code>careernest_recent_activity</code> — internal dashboard feed buffer. Stores the last N items shown in the dashboard activity widget.</li>
+      </ul>
+      <div class="callout warning">
+        <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+        <div>
+          <strong>If you add a new option, update <code>uninstall.php</code></strong>
+          <p>The uninstall script explicitly deletes the seven known option keys above. Adding a new <code>careernest_*</code> option without also adding it to <code>uninstall.php</code> will leave orphan data after deletion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         8. DEVELOPER REFERENCE
+         ========================================================== -->
+    <section id="developer">
+      <h2>Developer Reference <span class="section-badge">Advanced</span></h2>
+      <p class="lead">Everything theme developers and plugin extenders need to integrate with CareerNest — shortcodes, hooks, filters, helper functions, helper classes, and an overview of the AJAX surface.</p>
+
+      <section id="dev-shortcodes">
+        <h3>8.1 Shortcodes</h3>
+        <p>Five shortcodes are registered. Drop any of them into a page, post, widget, or template via <code>do_shortcode()</code>.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Tag</th><th>Renders</th></tr></thead>
+          <tbody>
+            <tr><td><code>[careernest_login]</code></td><td>Inline login + register form. No role chooser — the form links to dedicated register pages for role selection.</td></tr>
+            <tr><td><code>[careernest_job_search]</code></td><td>Compact search box with category + type + location filters. Useful as a homepage hero or sidebar widget.</td></tr>
+            <tr><td><code>[careernest_job_categories]</code></td><td>Grid of category cards with live job counts.</td></tr>
+            <tr><td><code>[careernest_jobs_by_category slug="..."]</code></td><td>Filtered job list for a specific category slug. Accepts <code>slug</code>, <code>per_page</code>, and <code>columns</code> attributes.</td></tr>
+            <tr><td><code>[careernest_employer_carousel]</code></td><td>Featured-employers carousel. Accepts a <code>count</code> attribute.</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="dev-actions">
+        <h3>8.2 Action Hooks</h3>
+        <p>Three plugin-defined actions extension code can listen on:</p>
+<pre><code class="language-php">// Fired when an applicant withdraws an application.
+do_action('careernest_application_withdrawn', int $application_id);
+
+// Fired when an employer updates application status.
+do_action('careernest_application_status_changed', int $app_id, string $old_status, string $new_status);
+
+// Daily cron tick — auto-expires jobs past _closing_date.
+do_action('careernest_expire_jobs');</code></pre>
+        <p>Listen for these from any plugin or theme via <code>add_action()</code>. Common use case: integrate with a CRM by posting to a webhook whenever an application status changes.</p>
+      </section>
+
+      <section id="dev-filters">
+        <h3>8.3 Template-Override Filters</h3>
+        <p>Six filters let a theme override CareerNest's built-in templates without forking the plugin:</p>
+<pre><code class="language-php">// Override individual CPT templates.
+apply_filters('careernest_single_job_template',      $template, $original);
+apply_filters('careernest_single_employer_template', $template, $original);
+apply_filters('careernest_single_applicant_template',$template, $original);
+
+// Override managed-page templates (jobs, login, dashboards, register, etc.).
+apply_filters('careernest_page_templates', $template_map);
+apply_filters("careernest_page_template_{$page_slug}", $template);
+apply_filters('careernest_page_template', $template, $page_slug);</code></pre>
+        <p>Return the absolute path to your replacement template file. The plugin's default templates live in <code>career-nest/templates/</code> — copy any of them into your theme as a starting point.</p>
+      </section>
+
+      <section id="dev-helpers">
+        <h3>8.4 PHP Helper Functions</h3>
+        <p>Three branding helpers are available globally (defined in <code>includes/branding-helpers.php</code>):</p>
+<pre><code class="language-php">cn_get_platform_name();      // "CareerNest" or branded override
+cn_get_email_from_name();    // Email sender display name
+cn_get_email_from_address(); // Email sender address</code></pre>
+        <p>Use these everywhere user-facing strings refer to the platform — they automatically honour the white-label settings.</p>
+      </section>
+
+      <section id="dev-classes">
+        <h3>8.5 Public Helper Classes</h3>
+        <p>Two static helper classes encapsulate the most important plugin logic. Always use these rather than reading meta directly.</p>
+
+        <h4>Ownership &amp; access checks</h4>
+<pre><code class="language-php">// Always use these — never read _user_id / _owner_ids directly.
+CareerNest\Team_Manager::is_owner(int $user_id, int $employer_id): bool;
+CareerNest\Team_Manager::user_can_manage_employer(int $user_id, int $employer_id): bool;</code></pre>
+        <p><code>is_owner()</code> checks both the legacy scalar <code>_user_id</code> (primary owner) AND the modern <code>_owner_ids</code> array (co-owners). <code>user_can_manage_employer()</code> is broader — it additionally walks the user-side <code>_employer_id</code> scalar and <code>_employer_ids</code> array. Use the former for "is this user specifically an owner?" and the latter for "can this user act on this employer?".</p>
+
+        <h4>Dual-role awareness</h4>
+<pre><code class="language-php">// Returns 'applicant' or 'employer' — honours the user's last-chosen mode.
+CareerNest\Profile_Helper::get_active_dashboard_mode(int $user_id): string;
+
+// True if the user holds both applicant AND employer_team roles.
+CareerNest\Profile_Helper::user_has_dual_roles(int $user_id): bool;
+
+// Both return ['percentage' => int, 'missing' => string[]] for the
+// dashboard completeness widget.
+CareerNest\Profile_Helper::calculate_employer_completeness(int $employer_id): array;
+CareerNest\Profile_Helper::calculate_applicant_completeness(int $applicant_id): array;</code></pre>
+
+        <h4>Mailer (always go through this)</h4>
+<pre><code class="language-php">// Send a registered template. $vars are merged with site defaults.
+CareerNest\Email\Mailer::send(string $template_key, string $to, array $vars);
+
+// Plain-text email, no template.
+CareerNest\Email\Mailer::send_plain(string $to, string $subject, string $message);
+
+// Notification to the site admin (uses WP admin email).
+CareerNest\Email\Mailer::send_admin_notification(string $subject, string $message);</code></pre>
+        <p>Never call <code>wp_mail()</code> directly from inside CN-related code — it bypasses the dev-mode disable flag and the scoped from-address override.</p>
+      </section>
+
+      <section id="dev-ajax">
+        <h3>8.6 AJAX &amp; admin_post Endpoints</h3>
+        <p>The plugin exposes <strong>35+ AJAX actions</strong> (half legacy <code>careernest_*</code>, half modern <code>cn_*</code>) and <strong>13 <code>admin_post_*</code> handlers</strong>. They power the approval workflows, role toggles, dashboard mode switching, file uploads, application status updates, and CSV import/export. A full table is maintained in the plugin's internal <code>CLAUDE.md</code>.</p>
+        <h4>Notable AJAX endpoints</h4>
+        <ul>
+          <li><code>careernest_filter_jobs</code> — the public job-board filter (with nopriv variant).</li>
+          <li><code>cn_toggle_user_role</code> — the Manage Roles page's toggle handler.</li>
+          <li><code>cn_switch_dashboard_mode</code> — dual-role mode switcher.</li>
+          <li><code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> — multi-owner management.</li>
+          <li><code>cn_switch_employer</code> — active-company switcher for users owning multiple.</li>
+          <li><code>cn_create_job</code> / <code>cn_update_job</code> / <code>cn_delete_job</code> — front-end job CRUD.</li>
+          <li><code>cn_update_app_status</code> — application status update (fires <code>careernest_application_status_changed</code>).</li>
+          <li><code>cn_upload_avatar</code> / <code>cn_upload_resume</code> — applicant file uploads.</li>
+        </ul>
+        <h4>Notable admin_post endpoints</h4>
+        <ul>
+          <li><code>cn_approve_employer</code> / <code>cn_decline_employer</code> / <code>cn_request_info</code> — employer approval workflow.</li>
+          <li><code>cn_approve_employee</code> / <code>cn_decline_employee</code> — team-member approval workflow.</li>
+          <li><code>cn_approve_deletion</code> / <code>cn_decline_deletion</code> — GDPR deletion-request workflow.</li>
+          <li><code>cn_export_jobs</code> / <code>cn_import_jobs</code> / <code>cn_export_employers</code> / <code>cn_import_employers</code> — CSV import/export.</li>
+        </ul>
+        <p>When adding a new AJAX endpoint, register the <code>wp_ajax_*</code> hook unconditionally (and <code>wp_ajax_nopriv_*</code> if it's a public endpoint). Capability and nonce checks go inside the handler. The same rule applies to <code>admin_post_*</code> handlers — register in <code>hooks()</code> regardless of screen, since <code>admin-post.php</code> requests never trigger <code>admin_menu</code> or <code>current_screen</code>.</p>
+      </section>
+    </section>
+
+    <!-- ==========================================================
+         9. TROUBLESHOOTING / FAQ
+         ========================================================== -->
+    <section id="troubleshooting">
+      <h2>Troubleshooting / FAQ</h2>
+      <p class="lead">The top 10 things people get stuck on, with confirmed causes and fixes. Click any question to expand.</p>
+
+      <div class="accordion" id="faq-accordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-1-content" id="faq-1-trigger">
+            <span>1. "Location search returns nothing when I type a city or country."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-1-content" role="region" aria-labelledby="faq-1-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> Two common culprits. First: jobs were saved without latitude/longitude — every keystroke in the address field clears the saved coordinates (the plugin can't be certain the new text still matches the previously-resolved place). Toggle <em>Settings → General → Debug: Show Coordinates</em> ON to spot jobs missing coords on the job board. Second (resolved in 1.17.4): the legacy 100 km cap on "Any distance" was silently bounding country-level searches.</p>
+              <p><strong>Fix.</strong> For affected jobs, edit each one and re-pick the address from the Places autocomplete dropdown (don't type it). For the 100 km cap, upgrade to 1.17.4+ — "Any distance" now applies no SQL geo filter, letting the post-query haversine pass handle distance badges and sorting across the entire result set.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-2-content" id="faq-2-trigger">
+            <span>2. "I added a user via Users → Manage Roles, then edited their profile, and the roles disappeared."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-2-content" role="region" aria-labelledby="faq-2-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> WordPress's <code>edit_user()</code> function calls <code>$user-&gt;set_role($primary)</code> on every user-edit form save — even when the role dropdown wasn't touched. <code>set_role()</code> is destructive: it wipes ALL roles and capabilities and sets exactly one.</p>
+              <p><strong>Fix.</strong> Resolved in 1.17.2 via a defensive <code>set_user_role</code> hook at priority 999. The hook receives the wiped <code>$old_roles</code> array and restores any CN-managed roles (<code>administrator</code>, <code>applicant</code>, <code>employer_team</code>, <code>aes_admin</code>) that were removed. Upgrade to 1.17.2+ and the issue disappears.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-3-content" id="faq-3-trigger">
+            <span>3. "I'm an admin with applicant + employer roles and I can't access wp-admin."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-3-content" role="region" aria-labelledby="faq-3-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> The wp-admin redirect guard in <code>Admin::redirect_roles_from_admin()</code> was matching on the <code>applicant</code> role first and bouncing the user back to the applicant dashboard — without ever checking whether the user also held <code>administrator</code>.</p>
+              <p><strong>Fix.</strong> Resolved in 1.17.3. The guard now bypasses if <code>current_user_can('edit_posts')</code> returns true, which covers <code>administrator</code>, <code>aes_admin</code>, and the standard WP <code>editor</code>/<code>author</code>/<code>contributor</code> roles. Pure <code>applicant</code> and <code>employer_team</code> users (no <code>edit_posts</code> capability) still get redirected as expected.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-4-content" id="faq-4-trigger">
+            <span>4. "Cover-letter file or 'other documents' uploaded by an applicant aren't visible to employers."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-4-content" role="region" aria-labelledby="faq-4-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> The files were stored correctly all along (the upload pipeline validates real MIME, writes the attachment, and stores its ID in <code>_cover_letter_file_id</code> / <code>_other_document_ids</code>), but the employer-facing application templates never read those meta keys — only <code>_resume_id</code> was rendered.</p>
+              <p><strong>Fix.</strong> Resolved in 1.13.2. Cover-letter files and other documents now appear in both the front-end Applications page (under "Documents" with download links) and the wp-admin application meta box (with replace/remove affordances).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-5-content" id="faq-5-trigger">
+            <span>5. "View Public Profile / Edit Profile says 'Access Denied' for a company I own."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-5-content" role="region" aria-labelledby="faq-5-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> Two front-end templates (<code>single-employer.php</code> and <code>template-employer-profile-edit.php</code>) used a hand-rolled scalar-only ownership check that compared <code>_user_id</code> (primary owner) and <code>_employer_id</code> (active company). Co-owners — users in the modern <code>_owner_ids</code> array but not the legacy scalar — failed both halves of the check.</p>
+              <p><strong>Fix.</strong> Resolved in 1.17.1. Both templates now use <code>Team_Manager::is_owner()</code> / <code>user_can_manage_employer()</code>, which check the modern <code>_owner_ids</code> array alongside the legacy scalar.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-6-content" id="faq-6-trigger">
+            <span>6. "No emails are sending."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-6-content" role="region" aria-labelledby="faq-6-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> First check: <em>Settings → General → Disable Emails</em>. When this is ON, every email is silently logged to <code>error_log</code> instead of being sent — a yellow warning banner appears at the top of wp-admin to remind you. If that's off, check that the WP admin email is configured correctly; if you're using an SMTP plugin, verify it's working independently.</p>
+              <p><strong>Fix.</strong> Toggle <em>Disable Emails</em> OFF before going live. If you have custom CN-related code, never call <code>wp_mail()</code> directly — always go through <code>Mailer::send()</code>, <code>Mailer::send_plain()</code>, or <code>Mailer::send_admin_notification()</code>, which respect the dev-mode flag.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-7-content" id="faq-7-trigger">
+            <span>7. "Google / LinkedIn login button doesn't appear."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-7-content" role="region" aria-labelledby="faq-7-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> <code>OAuth_Handler::is_provider_ready('google'|'linkedin')</code> returns true only when BOTH the provider's "Enable" toggle is ON AND the client ID + client secret fields are non-empty. Miss any of the three and the button is hidden.</p>
+              <p><strong>Fix.</strong> Visit <em>Settings → General → Social Login</em>. Confirm "Enable Google Login" (or LinkedIn) is checked. Paste both the Client ID and Client Secret from your provider's developer portal. Save. The button should appear immediately on the login and register pages.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-8-content" id="faq-8-trigger">
+            <span>8. "Multi-employer assignment from the User edit screen doesn't work."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-8-content" role="region" aria-labelledby="faq-8-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> The "Linked Employers" panel on the user-edit screen only renders for users in the <code>employer_team</code> role. If the user doesn't have that role yet, the panel is hidden.</p>
+              <p><strong>Fix.</strong> Visit <em>Users → Manage Roles</em> and grant the user <code>employer_team</code> first. Then return to their user-edit page — the Linked Employers panel will be visible.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-9-content" id="faq-9-trigger">
+            <span>9. "I posted a job but it's not appearing on the job board."</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-9-content" role="region" aria-labelledby="faq-9-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> Three common reasons. (a) The closing date has already passed — the daily <code>careernest_expire_jobs</code> cron auto-expires jobs past their <code>_closing_date</code>. (b) The job status is <code>draft</code> rather than <code>publish</code>. (c) The owning employer is still in <code>pending</code> or <code>declined</code> status — only jobs from <code>approved</code> employers appear on the public board.</p>
+              <p><strong>Fix.</strong> Verify all three: extend the closing date, publish the job, and confirm the employer has been approved in wp-admin.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-10-content" id="faq-10-trigger">
+            <span>10. "Where did the Additional Roles panel on the user-edit screen go?"</span>
+            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content" id="faq-10-content" role="region" aria-labelledby="faq-10-trigger">
+            <div class="accordion-content-inner">
+              <p><strong>Cause.</strong> Moved to a dedicated admin page in 1.17.0. The user-edit-screen approach hit the same WP timing quirk described in FAQ #2 — every form save called <code>set_role()</code> which wiped the additional roles we'd just granted.</p>
+              <p><strong>Fix.</strong> Use <em>Users → Manage Roles</em> instead. The dedicated page is AJAX-driven (via <code>cn_toggle_user_role</code>) and calls <code>add_role()</code> / <code>remove_role()</code> directly, bypassing <code>edit_user()</code> and its <code>set_role()</code> wipe entirely.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         10. CHANGELOG
+         ========================================================== -->
+    <section id="changelog">
+      <h2>Changelog</h2>
+      <p class="lead">Reverse-chronological version history. The most recent release sits at the top; the dot marker for the current version is filled in accent colour.</p>
+
+      <div class="timeline">
+        <div class="timeline-item current">
+          <span class="timeline-version">v1.17.4</span>
+          <div class="timeline-body">Location filter: "Any distance" radius=0 now skips the SQL bounding-box cap (was silently 100 km, breaking country-level searches). The post-query Haversine pass still applies distance badges and sorting across the whole result set.</div>
+          <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.17.3</span>
+          <div class="timeline-body">wp-admin access restored for dual-role admins. <code>Admin::redirect_roles_from_admin()</code> now bypasses on <code>current_user_can('edit_posts')</code> rather than bouncing every user holding the <code>applicant</code> role.</div>
+          <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.17.2</span>
+          <div class="timeline-body">Defensive <code>set_user_role</code> priority-999 hook protects CN-managed roles from WordPress's <code>edit_user()</code> save-wipe. Roles granted via Manage Roles now survive standard user-profile edits.</div>
+          <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.17.1</span>
+          <div class="timeline-body">Co-owner ownership checks. Replaced scalar-only <code>$is_owner</code> checks in <code>single-employer.php</code> and <code>template-employer-profile-edit.php</code> with the canonical <code>Team_Manager</code> helpers. Co-owners can now view and edit their company's profile.</div>
+          <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.17.0</span>
+          <div class="timeline-body">New <strong>Users → Manage Roles</strong> admin page (replaces the user-edit-screen panel). Built on <code>WP_List_Table</code> with click-to-toggle role buttons, last-administrator guard, self-edit guard, and auto-stub creation when granting <code>applicant</code> for the first time.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span><span class="pill removed">Removed</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.16.x</span>
+          <div class="timeline-body">Form upgrade-mode for register-applicant / register-employer (logged-in users with the other role get an "add to existing account" path), discovery cards in dashboards, Apply-button intercept on job listings, OAuth intent plumbing for cross-role linking.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.15.0</span>
+          <div class="timeline-body">Dual-role foundation. <code>_active_dashboard_mode</code> user meta, login redirect honours the mode, mode-switcher partial included in both dashboard heroes, dashboard navigation guard returns early for dual-role users.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.14.0</span>
+          <div class="timeline-body">Multi-employer linking inverse-view panel on the user-edit screen. Reuses the existing <code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> AJAX endpoints — no new server-side logic.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-version">v1.13.2</span>
+          <div class="timeline-body">Application file uploads (cover letter + other documents) are now rendered for employers in both the front-end Applications page and the wp-admin application meta box. Storage was already correct; only the display was missing.</div>
+          <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.13.x</span>
+          <div class="timeline-body">Employer-dashboard polish bundles A→F: N+1 query fix in the applications table, inline edit affordances throughout, owner-edit button relocated to the profile banner.</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.10.x – 1.12.x</span>
+          <div class="timeline-body">Mobile responsiveness bundles. Sidebar overflow fix (<code>grid-template-columns: minmax(0, 2fr) minmax(0, 1fr)</code>), dashboard header made responsive, touch-target sizing across both dashboards.</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.9.0</span>
+          <div class="timeline-body">Email Template Visual Editor — 3-panel admin UI (sidebar / TinyMCE / live preview iframe). Per-template AJAX save, reset-to-default, send-test-email.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.8.0</span>
+          <div class="timeline-body">Frontend CSS refactor. Extracted inline heredocs to real CSS files; brand colours variable-ized via <code>var(--cn-primary-btn, #FF8200)</code>; the <code>:root { --cn-* }</code> block now emits on every front-end page (not just CN pages).</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.7.x</span>
+          <div class="timeline-body">OAuth social login — Google + LinkedIn flows, role chooser for new users, avatar fetch, GDPR Personal Data Exporter and Eraser integration.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.6.x</span>
+          <div class="timeline-body">Multi-owner system overhaul. <code>Team_Manager::is_owner()</code> / <code>user_can_manage_employer()</code> introduced; bidirectional ownership writes in the approval flow; <code>_owner_ids</code> array introduced alongside the legacy <code>_user_id</code> scalar.</div>
+          <div class="timeline-tags"><span class="pill added">Added</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.5.x</span>
+          <div class="timeline-body">Jade label renames: Overview → Vacancy Details, Who We Are → Essential Criteria, What We Offer → Desirable Criteria. Remote-position toggle moved under the Location field for clearer placement.</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span></div>
+        </div>
+        <div class="timeline-item legacy">
+          <span class="timeline-version">v1.4.x</span>
+          <div class="timeline-body">Email subsystem hardened. Every <code>wp_mail()</code> call replaced with <code>Mailer::*</code>; dev-mode disable flag; scoped from-name/from-address filter that only applies to plugin emails.</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         11. SUPPORT & CREDITS
+         ========================================================== -->
+    <section id="support">
+      <h2>Support &amp; Credits</h2>
+      <p class="lead">CareerNest is built and maintained by Rohan T George at Blue Vineyard. For support, feature requests, or licensing enquiries, get in touch.</p>
+
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h4>Author</h4>
+          <p>Rohan T George<br>Blue Vineyard<br><a href="https://rohantgeorge.ca/" target="_blank" rel="noopener">rohantgeorge.ca</a></p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h4>Support email</h4>
+          <p><a href="mailto:rohan@bluevineyard.com">rohan@bluevineyard.com</a></p>
+        </article>
+        <article class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>Version documented</h4>
+          <p><strong>1.17.4</strong> · Last updated 18 May 2026</p>
+        </article>
+      </div>
+
+      <h3>A note on white-labelling</h3>
+      <p>CareerNest is intentionally white-label. The plugin name, logo, colours, and email sender details that appear to your end users can all be overridden from <em>Settings → CareerNest Settings → Branding / Appearance</em>. Nothing in the customer-facing experience needs to mention "CareerNest" — your platform can carry your brand entirely.</p>
+      <p>If you're documenting your own deployment for your users, feel free to fork this manual and rebrand it. Everything below the surface is yours to relabel.</p>
+
+      <hr>
+
+      <p style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:var(--space-8);">
+        Thanks for using CareerNest — and good luck with your careers platform.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>CareerNest User Manual · v1.17.4 · Built with care by Blue Vineyard</div>
+    <div><a href="#hero">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<!-- Back-to-top floating button -->
+<button class="back-to-top" id="back-to-top" aria-label="Scroll to top of page" title="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<script>
+/* ========================================================================
+   CareerNest User Manual — vanilla JS
+   ========================================================================
+   Sections:
+     1. Theme Toggle (light/dark + localStorage)
+     2. Mobile Drawer (sidebar slide-in)
+     3. Smooth Scroll + TOC Active Highlighting (IntersectionObserver)
+     4. Live Search (debounced)
+     5. Accordion (FAQ — single-open, ARIA)
+     6. Tabs (Configuration — keyboard accessible)
+     7. Copy-Code Buttons (Clipboard API)
+     8. Back-to-Top
+     9. Syntax Highlighter (hand-rolled, PHP)
+   ======================================================================== */
+(function () {
+  'use strict';
+
+  /* ----------------------------------------------------------------------
+     1. THEME TOGGLE
+     ---------------------------------------------------------------------- */
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  const THEME_KEY = 'cn-manual-theme';
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+  }
+
+  // Initial theme: stored preference, else prefers-color-scheme, else light
+  (function initTheme() {
+    let theme = null;
+    try { theme = localStorage.getItem(THEME_KEY); } catch (e) {}
+    if (!theme) {
+      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    applyTheme(theme);
+  })();
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     2. MOBILE DRAWER
+     ---------------------------------------------------------------------- */
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const drawerOverlay = document.getElementById('drawer-overlay');
+
+  function openDrawer() {
+    sidebar.classList.add('open');
+    drawerOverlay.classList.add('open');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    sidebar.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function () {
+      if (sidebar.classList.contains('open')) closeDrawer();
+      else openDrawer();
+    });
+  }
+  if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+  // Close drawer when a sidebar link is clicked (mobile only)
+  sidebar.addEventListener('click', function (e) {
+    const link = e.target.closest('a');
+    if (link && window.innerWidth < 1024) closeDrawer();
+  });
+
+  // Esc to close drawer
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) closeDrawer();
+  });
+
+  /* ----------------------------------------------------------------------
+     3. TOC ACTIVE HIGHLIGHTING
+     ---------------------------------------------------------------------- */
+  const sidebarLinks = sidebar.querySelectorAll('a[href^="#"]');
+  const linkMap = new Map();
+  sidebarLinks.forEach(function (a) {
+    const id = a.getAttribute('href').slice(1);
+    if (id) linkMap.set(id, a);
+  });
+
+  const sectionsToObserve = [];
+  linkMap.forEach(function (_link, id) {
+    const sec = document.getElementById(id);
+    if (sec) sectionsToObserve.push(sec);
+  });
+
+  if ('IntersectionObserver' in window && sectionsToObserve.length) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        // Clear all
+        linkMap.forEach(function (a) { a.classList.remove('active'); });
+        // Set this one
+        const link = linkMap.get(id);
+        if (link) link.classList.add('active');
+      });
+    }, {
+      rootMargin: '-80px 0px -65% 0px',
+      threshold: 0
+    });
+    sectionsToObserve.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ----------------------------------------------------------------------
+     4. LIVE SEARCH (debounced, scans headings + paragraphs)
+     ---------------------------------------------------------------------- */
+  const searchInput = document.getElementById('search-input');
+  const searchCount = document.getElementById('search-results-count');
+  let searchTimeout;
+
+  const allSections = Array.from(document.querySelectorAll('main section[id]'));
+  function clearHighlights() {
+    document.querySelectorAll('mark.search-hit').forEach(function (m) {
+      const txt = document.createTextNode(m.textContent);
+      m.replaceWith(txt);
+    });
+    allSections.forEach(function (s) { s.classList.remove('search-hidden'); });
+  }
+  function highlightInElement(el, query) {
+    if (!query) return 0;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement.closest('pre, code, .copy-btn, .accordion-trigger, .tab')) {
+          // Don't highlight inside code or interactive widgets
+          return NodeFilter.FILTER_REJECT;
+        }
+        const lower = node.nodeValue.toLowerCase();
+        if (lower.indexOf(query) === -1) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    let hits = 0;
+    nodes.forEach(function (node) {
+      const text = node.nodeValue;
+      const lower = text.toLowerCase();
+      let from = 0, idx;
+      const frag = document.createDocumentFragment();
+      while ((idx = lower.indexOf(query, from)) !== -1) {
+        if (idx > from) frag.appendChild(document.createTextNode(text.slice(from, idx)));
+        const mark = document.createElement('mark');
+        mark.className = 'search-hit';
+        mark.textContent = text.slice(idx, idx + query.length);
+        frag.appendChild(mark);
+        from = idx + query.length;
+        hits++;
+      }
+      if (from < text.length) frag.appendChild(document.createTextNode(text.slice(from)));
+      node.parentNode.replaceChild(frag, node);
+    });
+    return hits;
+  }
+
+  function runSearch(query) {
+    clearHighlights();
+    if (!query) { searchCount.textContent = ''; return; }
+    let totalHits = 0;
+    let sectionsWithHits = 0;
+    allSections.forEach(function (section) {
+      const hits = highlightInElement(section, query);
+      if (hits > 0) { totalHits += hits; sectionsWithHits++; }
+      else if (section.id !== 'hero') section.classList.add('search-hidden');
+    });
+    if (totalHits === 0) {
+      searchCount.textContent = 'No matches';
+    } else {
+      searchCount.textContent = totalHits + ' match' + (totalHits === 1 ? '' : 'es') + ' in ' + sectionsWithHits + ' section' + (sectionsWithHits === 1 ? '' : 's');
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(searchTimeout);
+      const q = searchInput.value.trim().toLowerCase();
+      searchTimeout = setTimeout(function () { runSearch(q); }, 200);
+    });
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { searchInput.value = ''; runSearch(''); }
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     5. ACCORDION (FAQ — single-open, ARIA)
+     ---------------------------------------------------------------------- */
+  const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+  accordionTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      // Close all
+      accordionTriggers.forEach(function (t) {
+        t.setAttribute('aria-expanded', 'false');
+        const c = document.getElementById(t.getAttribute('aria-controls'));
+        if (c) c.style.maxHeight = '0px';
+      });
+      // Open this one (if it was closed)
+      if (!expanded) {
+        trigger.setAttribute('aria-expanded', 'true');
+        const content = document.getElementById(trigger.getAttribute('aria-controls'));
+        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------------------
+     6. TABS (Configuration — arrow-key navigation, ARIA)
+     ---------------------------------------------------------------------- */
+  const tablists = document.querySelectorAll('[role="tablist"]');
+  tablists.forEach(function (tablist) {
+    const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+    tabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () { activateTab(tabs, idx); });
+      tab.addEventListener('keydown', function (e) {
+        let next = null;
+        if (e.key === 'ArrowRight') next = (idx + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (idx - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next !== null) { e.preventDefault(); activateTab(tabs, next); tabs[next].focus(); }
+      });
+    });
+  });
+  function activateTab(tabs, activeIdx) {
+    tabs.forEach(function (tab, i) {
+      const panel = document.getElementById(tab.getAttribute('aria-controls'));
+      const isActive = i === activeIdx;
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      tab.tabIndex = isActive ? 0 : -1;
+      if (panel) {
+        if (isActive) panel.setAttribute('data-active', '');
+        else panel.removeAttribute('data-active');
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     7. COPY-CODE BUTTONS
+     ---------------------------------------------------------------------- */
+  document.querySelectorAll('pre').forEach(function (pre) {
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Copy code to clipboard');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
+    pre.appendChild(btn);
+
+    btn.addEventListener('click', function () {
+      const code = pre.querySelector('code');
+      const text = code ? code.textContent : pre.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showCopied).catch(fallback);
+      } else { fallback(); }
+
+      function showCopied() {
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
+        }, 1800);
+      }
+      function fallback() {
+        // Use a hidden textarea fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showCopied(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------------------
+     8. BACK-TO-TOP
+     ---------------------------------------------------------------------- */
+  const backToTop = document.getElementById('back-to-top');
+  function toggleBackToTop() {
+    if (window.scrollY > 400) backToTop.classList.add('visible');
+    else backToTop.classList.remove('visible');
+  }
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  if (backToTop) {
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     9. SYNTAX HIGHLIGHTER (hand-rolled, PHP only — no external dependency)
+     ----------------------------------------------------------------------
+     Strategy: regex-based tokenizer that handles comments first (so they
+     "eat" any keyword-looking content inside them), then strings, then
+     numbers, then variables, then function calls, then keywords. Each
+     match wraps its text in a <span class="hl-*"> with the right class.
+     ---------------------------------------------------------------------- */
+  const PHP_KEYWORDS = [
+    'abstract','and','array','as','break','callable','case','catch','class','clone',
+    'const','continue','declare','default','do','echo','else','elseif','empty','enddeclare',
+    'endfor','endforeach','endif','endswitch','endwhile','enum','extends','final','finally',
+    'fn','for','foreach','function','global','goto','if','implements','include','include_once',
+    'instanceof','insteadof','interface','isset','list','match','namespace','new','or','print',
+    'private','protected','public','readonly','require','require_once','return','static',
+    'switch','throw','trait','try','unset','use','var','while','xor','yield',
+    'true','false','null','self','parent','int','string','bool','float','void','mixed'
+  ];
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function highlightPhp(src) {
+    // Token list: [start, end, className]
+    const tokens = [];
+    let i = 0;
+    const N = src.length;
+
+    function pushToken(start, end, cls) { tokens.push([start, end, cls]); }
+
+    while (i < N) {
+      const ch = src[i];
+      const next = src[i + 1];
+
+      // /* … */ block comment
+      if (ch === '/' && next === '*') {
+        const end = src.indexOf('*/', i + 2);
+        const stop = end === -1 ? N : end + 2;
+        pushToken(i, stop, 'hl-comment');
+        i = stop; continue;
+      }
+      // // line comment
+      if (ch === '/' && next === '/') {
+        let j = i;
+        while (j < N && src[j] !== '\n') j++;
+        pushToken(i, j, 'hl-comment');
+        i = j; continue;
+      }
+      // # line comment
+      if (ch === '#') {
+        let j = i;
+        while (j < N && src[j] !== '\n') j++;
+        pushToken(i, j, 'hl-comment');
+        i = j; continue;
+      }
+      // Strings — single or double quoted (with escape handling)
+      if (ch === '"' || ch === "'") {
+        const quote = ch;
+        let j = i + 1;
+        while (j < N) {
+          if (src[j] === '\\' && j + 1 < N) { j += 2; continue; }
+          if (src[j] === quote) { j++; break; }
+          j++;
+        }
+        pushToken(i, j, 'hl-string');
+        i = j; continue;
+      }
+      // Numbers
+      if (/[0-9]/.test(ch)) {
+        let j = i;
+        while (j < N && /[0-9.x_A-Fa-f]/.test(src[j])) j++;
+        pushToken(i, j, 'hl-number');
+        i = j; continue;
+      }
+      // Variables ($foo)
+      if (ch === '$') {
+        let j = i + 1;
+        while (j < N && /[A-Za-z0-9_]/.test(src[j])) j++;
+        if (j > i + 1) { pushToken(i, j, 'hl-variable'); i = j; continue; }
+      }
+      // Identifiers — could be keyword, function call, or plain
+      if (/[A-Za-z_\\]/.test(ch)) {
+        let j = i;
+        while (j < N && /[A-Za-z0-9_\\]/.test(src[j])) j++;
+        const ident = src.slice(i, j);
+        const isKeyword = PHP_KEYWORDS.indexOf(ident.toLowerCase()) !== -1;
+        // Function call detection — peek past whitespace for '('
+        let k = j;
+        while (k < N && /\s/.test(src[k])) k++;
+        const isCall = !isKeyword && src[k] === '(';
+        if (isKeyword) pushToken(i, j, 'hl-keyword');
+        else if (isCall) pushToken(i, j, 'hl-function');
+        i = j; continue;
+      }
+      i++;
+    }
+
+    // Rebuild output, escaping non-token spans
+    let out = '';
+    let cursor = 0;
+    tokens.forEach(function (t) {
+      const [start, end, cls] = t;
+      if (start > cursor) out += escapeHtml(src.slice(cursor, start));
+      out += '<span class="' + cls + '">' + escapeHtml(src.slice(start, end)) + '</span>';
+      cursor = end;
+    });
+    if (cursor < src.length) out += escapeHtml(src.slice(cursor));
+    return out;
+  }
+
+  document.querySelectorAll('code.language-php').forEach(function (codeEl) {
+    codeEl.innerHTML = highlightPhp(codeEl.textContent);
+  });
+
+})();
+</script>
+
+</body>
+</html>
