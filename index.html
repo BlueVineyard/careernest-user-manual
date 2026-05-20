@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CareerNest — User Manual v1.17.4</title>
-<meta name="description" content="The official user manual for CareerNest — a standalone WordPress job-portal plugin. Covers installation, configuration, features, developer reference, troubleshooting, and full changelog.">
+<title>CareerNest - User Manual v1.17.4</title>
+<meta name="description" content="The official user manual for CareerNest - a standalone WordPress job-portal plugin. Covers installation, configuration, features, developer reference, troubleshooting, and full changelog.">
 <meta name="theme-color" content="#FF8200">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ========================================================================
-   1. DESIGN TOKENS — light mode defaults on :root, dark on [data-theme]
+   1. DESIGN TOKENS - light mode defaults on :root, dark on [data-theme]
    ======================================================================== */
 :root {
-  /* Colours — light mode */
+  /* Colours - light mode */
   --bg: #ffffff;
   --surface: #f9fafb;
   --surface-2: #f3f4f6;
@@ -129,7 +129,7 @@ body {
 
 img { max-width: 100%; display: block; }
 /* Defensive: inline SVGs without explicit width/height attrs default to their
-   viewBox aspect at 300×150 or 100% — both wreck layouts. Cap them at 1em
+   viewBox aspect at 300×150 or 100% - both wreck layouts. Cap them at 1em
    so an un-styled SVG renders at text size by default. Specificity is
    intentionally low (single type selector) so any class-based rule wins. */
 svg { width: 1em; height: 1em; flex-shrink: 0; }
@@ -137,14 +137,14 @@ button { font: inherit; cursor: pointer; background: none; border: none; color: 
 a { color: var(--accent); text-decoration: none; transition: color 0.15s ease; }
 a:hover { color: var(--accent-hover); text-decoration: underline; }
 
-/* Focus rings — accent-coloured, visible */
+/* Focus rings - accent-coloured, visible */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
 
-/* Skip link — first focusable, hidden until focused */
+/* Skip link - first focusable, hidden until focused */
 .skip-link {
   position: absolute;
   top: 0; left: 0;
@@ -195,7 +195,7 @@ code {
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   /* Inline code can contain long unbreakable identifiers (e.g.
-     `_oauth_{provider}_avatar_url`) — let them break mid-word
+     `_oauth_{provider}_avatar_url`) - let them break mid-word
      on narrow viewports rather than overflowing the paragraph. */
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -767,7 +767,7 @@ tbody td:first-child code { white-space: nowrap; }
 /* ========================================================================
    14. CHECKLIST + STEP LIST
    ======================================================================== */
-/* Lists with a leading marker — counter for .steps, checkmark for
+/* Lists with a leading marker - counter for .steps, checkmark for
    .checklist. Use position:absolute for the marker rather than grid,
    so the LI's prose flows naturally as inline content. Grid+inline
    content interacts badly: text-runs + <strong> + text-runs each get
@@ -1028,7 +1028,7 @@ section.search-hidden { display: none; }
   }
   .hero { border-bottom: 1px solid #000; page-break-after: always; padding: 2rem 0; }
   .hero::after {
-    content: 'Printed from the official CareerNest User Manual — v1.17.4';
+    content: 'Printed from the official CareerNest User Manual - v1.17.4';
     display: block;
     margin-top: 2rem;
     font-size: 0.9rem;
@@ -1056,7 +1056,7 @@ section.search-hidden { display: none; }
       <svg class="topbar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
       </svg>
-      <input type="search" id="search-input" placeholder="Search the manual…" aria-label="Search the manual">
+      <input type="search" id="search-input" placeholder="Search the manual..." aria-label="Search the manual">
       <div class="search-results-count" id="search-results-count" aria-live="polite"></div>
     </div>
 
@@ -1127,13 +1127,13 @@ section.search-hidden { display: none; }
     <section id="hero" class="hero">
       <span class="hero-eyebrow">Official User Manual · Version 1.17.4</span>
       <h1>CareerNest</h1>
-      <p class="hero-tagline">A standalone WordPress job-portal plugin that turns any WordPress site into a fully-featured careers platform — job postings, employer accounts, applicant profiles, and applications — built entirely on WordPress core APIs with zero third-party dependencies.</p>
+      <p class="hero-tagline">A standalone WordPress job-portal plugin that turns any WordPress site into a fully-featured careers platform - job postings, employer accounts, applicant profiles, and applications - built entirely on WordPress core APIs with zero third-party dependencies.</p>
       <div class="hero-meta">
         <span>📘 Last updated: 18 May 2026</span>
         <span>🏷️ Documents version 1.17.4</span>
         <span>👤 By Rohan T George · Blue Vineyard</span>
       </div>
-      <p class="hero-description">This manual walks site owners, hiring teams, and developers through every aspect of CareerNest — from a five-minute first install to extending the plugin with custom theme templates. Every setting, shortcode, hook, and FAQ is documented in full. Use the sidebar (or the search box) to jump straight to what you need.</p>
+      <p class="hero-description">This manual walks site owners, hiring teams, and developers through every aspect of CareerNest - from a five-minute first install to extending the plugin with custom theme templates. Every setting, shortcode, hook, and FAQ is documented in full. Use the sidebar (or the search box) to jump straight to what you need.</p>
       <div class="hero-cta">
         <a href="#installation" class="btn btn-primary">
           Get Started
@@ -1148,8 +1148,8 @@ section.search-hidden { display: none; }
          ========================================================== -->
     <section id="introduction">
       <h2>Introduction</h2>
-      <p class="lead">CareerNest is a self-contained job-portal plugin for WordPress. It registers four custom post types (jobs, employers, applicants, applications), three custom user roles, and a complete set of public-facing pages — and ties them together with admin dashboards, approval workflows, email notifications, and a configurable job board.</p>
-      <p>Unlike most job-portal plugins, CareerNest depends on <strong>nothing but WordPress core APIs</strong>. No external services are required to run it, no premium add-ons are needed, and no third-party SDKs ship with the plugin. Google Maps is the only optional external integration — and the plugin degrades gracefully when its API key is absent.</p>
+      <p class="lead">CareerNest is a self-contained job-portal plugin for WordPress. It registers four custom post types (jobs, employers, applicants, applications), three custom user roles, and a complete set of public-facing pages - and ties them together with admin dashboards, approval workflows, email notifications, and a configurable job board.</p>
+      <p>Unlike most job-portal plugins, CareerNest depends on <strong>nothing but WordPress core APIs</strong>. No external services are required to run it, no premium add-ons are needed, and no third-party SDKs ship with the plugin. Google Maps is the only optional external integration - and the plugin degrades gracefully when its API key is absent.</p>
       <p>The plugin is also <strong>white-label by design</strong>: the platform name, logo, email sender, brand colours, and container width are all overridable from <em>Settings → CareerNest Settings → Branding / Appearance</em>. The "CareerNest" string can disappear from the user-facing UI entirely.</p>
 
       <h3>Who is this for?</h3>
@@ -1159,7 +1159,7 @@ section.search-hidden { display: none; }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <h4>For Job Seekers</h4>
-          <p>Build a public profile, upload your resume, apply for jobs, withdraw applications, and track every status change — all from a personal dashboard. Optional Google or LinkedIn sign-in.</p>
+          <p>Build a public profile, upload your resume, apply for jobs, withdraw applications, and track every status change - all from a personal dashboard. Optional Google or LinkedIn sign-in.</p>
         </article>
         <article class="card">
           <div class="card-icon" aria-hidden="true">
@@ -1181,7 +1181,7 @@ section.search-hidden { display: none; }
         <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
         <div>
           <strong>System requirements</strong>
-          <p>WordPress <strong>6.0+</strong>, PHP <strong>8.0+</strong>. A Google Maps API key is optional but strongly recommended — without it, the location filter on the public job board falls back to a literal substring match on the address string, which can hide jobs whose city or state isn't part of the saved address.</p>
+          <p>WordPress <strong>6.0+</strong>, PHP <strong>8.0+</strong>. A Google Maps API key is optional but strongly recommended - without it, the location filter on the public job board falls back to a literal substring match on the address string, which can hide jobs whose city or state isn't part of the saved address.</p>
         </div>
       </div>
     </section>
@@ -1191,9 +1191,9 @@ section.search-hidden { display: none; }
          ========================================================== -->
     <section id="installation">
       <h2>Installation &amp; Setup</h2>
-      <p>CareerNest is currently distributed as a manual install — it isn't yet listed on the WordPress.org plugin repository. There are two equivalent install paths.</p>
+      <p>CareerNest is currently distributed as a manual install - it isn't yet listed on the WordPress.org plugin repository. There are two equivalent install paths.</p>
 
-      <h3>Method 1 — ZIP upload via wp-admin</h3>
+      <h3>Method 1 - ZIP upload via wp-admin</h3>
       <ol class="steps">
         <li>From the WordPress admin dashboard, navigate to <strong>Plugins → Add New</strong>.</li>
         <li>Click <strong>Upload Plugin</strong> at the top of the page.</li>
@@ -1201,7 +1201,7 @@ section.search-hidden { display: none; }
         <li>Once installed, click <strong>Activate</strong>.</li>
       </ol>
 
-      <h3>Method 2 — Manual file copy</h3>
+      <h3>Method 2 - Manual file copy</h3>
       <ol class="steps">
         <li>Extract <code>career-nest.zip</code> on your machine, or clone the repo directly.</li>
         <li>Upload the <code>career-nest/</code> folder to <code>wp-content/plugins/</code> via SFTP, SSH, or your hosting file manager. The full path should be <code>wp-content/plugins/career-nest/careernest.php</code>.</li>
@@ -1214,7 +1214,7 @@ section.search-hidden { display: none; }
         <li>Creates 4 custom post types: <code>job_listing</code>, <code>employer</code>, <code>applicant</code>, <code>job_application</code>.</li>
         <li>Creates 2 taxonomies attached to <code>job_listing</code>: <code>job_category</code> and <code>job_type</code> (Full-time, Part-time, Contract, Casual).</li>
         <li>Creates 3 custom user roles: <code>aes_admin</code>, <code>employer_team</code>, <code>applicant</code>.</li>
-        <li>Grants plugin-management capabilities (<code>manage_careernest</code>, <code>edit_jobs</code>, <code>edit_employers</code>, …) to <code>administrator</code> and <code>aes_admin</code>.</li>
+        <li>Grants plugin-management capabilities (<code>manage_careernest</code>, <code>edit_jobs</code>, <code>edit_employers</code>, ...) to <code>administrator</code> and <code>aes_admin</code>.</li>
         <li>Auto-creates the managed front-end pages: <code>/jobs/</code>, <code>/applicant-dashboard/</code>, <code>/employer-dashboard/</code>, login, register-applicant, register-employer, register-employee, forgot-password, and reset-password.</li>
         <li>Schedules the daily <code>careernest_expire_jobs</code> WP-Cron event (auto-expires jobs past their closing date).</li>
         <li>Flushes the WordPress rewrite rules so the custom URLs work: <code>/job/{slug}</code>, <code>/employers/{slug}</code>, <code>/applicants/{slug}</code>.</li>
@@ -1259,7 +1259,7 @@ section.search-hidden { display: none; }
         <li>
           <div>
             <strong>Activate the plugin.</strong>
-            <p>Once activated, you'll see a new top-level menu item — <em>CareerNest</em> — in the wp-admin sidebar, plus settings entries under <em>Settings → CareerNest Settings</em>.</p>
+            <p>Once activated, you'll see a new top-level menu item - <em>CareerNest</em> - in the wp-admin sidebar, plus settings entries under <em>Settings → CareerNest Settings</em>.</p>
           </div>
         </li>
         <li>
@@ -1277,7 +1277,7 @@ section.search-hidden { display: none; }
         <li>
           <div>
             <strong>Register a test company.</strong>
-            <p>Sign out of wp-admin and visit <code>/register-employer/</code> in an incognito window. Fill in the form. The company is created with <code>pending</code> status — it doesn't appear on the public job board yet.</p>
+            <p>Sign out of wp-admin and visit <code>/register-employer/</code> in an incognito window. Fill in the form. The company is created with <code>pending</code> status - it doesn't appear on the public job board yet.</p>
           </div>
         </li>
         <li>
@@ -1303,7 +1303,7 @@ section.search-hidden { display: none; }
         <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
         <div>
           <strong>Skip the approval friction during testing</strong>
-          <p>If you want to bypass the manual approval step while building or testing, enable <em>Disable Emails</em> under <em>Settings → General</em> first — that way no test emails escape to real inboxes while you're iterating.</p>
+          <p>If you want to bypass the manual approval step while building or testing, enable <em>Disable Emails</em> under <em>Settings → General</em> first - that way no test emails escape to real inboxes while you're iterating.</p>
         </div>
       </div>
     </section>
@@ -1313,37 +1313,37 @@ section.search-hidden { display: none; }
          ========================================================== -->
     <section id="features">
       <h2>Features Walkthrough</h2>
-      <p class="lead">A guided tour of everything CareerNest can do, grouped by audience. Use the in-page screenshot placeholders as visual anchors — they're sized at 16:9 and ready to be swapped for real captures of your installation.</p>
+      <p class="lead">A guided tour of everything CareerNest can do, grouped by audience. Use the in-page screenshot placeholders as visual anchors - they're sized at 16:9 and ready to be swapped for real captures of your installation.</p>
 
       <!-- 6.1 -->
       <section id="features-job-seekers">
         <h3>For Job Seekers (Applicants)</h3>
-        <p>Applicants get a public-facing profile page (at <code>/applicants/{slug}/</code>) and a private dashboard at <code>/applicant-dashboard/</code>. The profile is fully self-managed via inline edit affordances — no need to switch into wp-admin.</p>
+        <p>Applicants get a public-facing profile page (at <code>/applicants/{slug}/</code>) and a private dashboard at <code>/applicant-dashboard/</code>. The profile is fully self-managed via inline edit affordances - no need to switch into wp-admin.</p>
 
         <figure>
           <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Applicant dashboard with profile completeness widget</span></div>
-          <figcaption>Applicant dashboard — hero header with avatar, completeness widget, applications table.</figcaption>
+          <figcaption>Applicant dashboard - hero header with avatar, completeness widget, applications table.</figcaption>
         </figure>
 
         <h4>The profile builder</h4>
         <p>Every section of the applicant profile can be edited inline by clicking the small pencil icon that appears on hover. Sections include:</p>
         <ul>
-          <li><strong>Photo</strong> — drag-to-upload avatar, JPG/PNG/GIF, 5 MB cap, real-MIME validated.</li>
-          <li><strong>Professional title</strong> — short headline shown under the name.</li>
-          <li><strong>Bio / summary</strong> — rich text, sanitised with <code>wp_kses_post()</code>.</li>
-          <li><strong>Work experience</strong> — repeater. Each entry: job title, company, dates, description.</li>
-          <li><strong>Education</strong> — repeater. Institution, qualification, dates.</li>
-          <li><strong>Licenses &amp; certifications</strong> — repeater.</li>
-          <li><strong>Skills</strong> — comma-separated tags.</li>
-          <li><strong>Location</strong> — Places autocomplete + lat/lng + Place ID (used by employers' search).</li>
-          <li><strong>Work-type preferences</strong> — multi-select: Full-time, Part-time, Contract, Casual.</li>
-          <li><strong>Right-to-work status</strong> — for jurisdictions that require disclosure.</li>
-          <li><strong>Contact details</strong> — phone, email (display copy of the user's WP email).</li>
-          <li><strong>Social / portfolio links</strong> — LinkedIn URL plus a repeater of custom links.</li>
+          <li><strong>Photo</strong> - drag-to-upload avatar, JPG/PNG/GIF, 5 MB cap, real-MIME validated.</li>
+          <li><strong>Professional title</strong> - short headline shown under the name.</li>
+          <li><strong>Bio / summary</strong> - rich text, sanitised with <code>wp_kses_post()</code>.</li>
+          <li><strong>Work experience</strong> - repeater. Each entry: job title, company, dates, description.</li>
+          <li><strong>Education</strong> - repeater. Institution, qualification, dates.</li>
+          <li><strong>Licenses &amp; certifications</strong> - repeater.</li>
+          <li><strong>Skills</strong> - comma-separated tags.</li>
+          <li><strong>Location</strong> - Places autocomplete + lat/lng + Place ID (used by employers' search).</li>
+          <li><strong>Work-type preferences</strong> - multi-select: Full-time, Part-time, Contract, Casual.</li>
+          <li><strong>Right-to-work status</strong> - for jurisdictions that require disclosure.</li>
+          <li><strong>Contact details</strong> - phone, email (display copy of the user's WP email).</li>
+          <li><strong>Social / portfolio links</strong> - LinkedIn URL plus a repeater of custom links.</li>
         </ul>
 
         <h4>Resume management</h4>
-        <p>The sidebar of the dashboard has a dedicated resume widget — upload, replace, or remove. Files are validated by real MIME (not the browser-supplied type, which is spoofable). Accepted: PDF, DOC, DOCX. Maximum size: 10 MB.</p>
+        <p>The sidebar of the dashboard has a dedicated resume widget - upload, replace, or remove. Files are validated by real MIME (not the browser-supplied type, which is spoofable). Accepted: PDF, DOC, DOCX. Maximum size: 10 MB.</p>
 
         <h4>Applying to a job</h4>
         <p>From any job listing, click <em>Apply</em>. The apply form lets the applicant attach:</p>
@@ -1355,7 +1355,7 @@ section.search-hidden { display: none; }
         </ul>
 
         <h4>Bookmarks &amp; status notifications</h4>
-        <p>The bookmark icon on every job card is one-click toggle. Bookmarks appear in a dedicated tab on the applicant dashboard. Applicants receive an email any time their application status changes — submitted → under review → shortlisted → interview → offer → hired / rejected / withdrawn / archived.</p>
+        <p>The bookmark icon on every job card is one-click toggle. Bookmarks appear in a dedicated tab on the applicant dashboard. Applicants receive an email any time their application status changes - submitted → under review → shortlisted → interview → offer → hired / rejected / withdrawn / archived.</p>
 
         <h4>Profile completeness widget</h4>
         <p>The dashboard sidebar shows a circular progress meter calculated from <code>Profile_Helper::calculate_applicant_completeness()</code>. Missing sections are listed below the meter, each with an "Edit" link that scrolls the user to the relevant section anchor on the public profile page.</p>
@@ -1368,15 +1368,15 @@ section.search-hidden { display: none; }
 
         <figure>
           <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Employer dashboard hero with multi-company switcher</span></div>
-          <figcaption>Employer dashboard — multi-company switcher pill, profile completeness, recent jobs, recent applications.</figcaption>
+          <figcaption>Employer dashboard - multi-company switcher pill, profile completeness, recent jobs, recent applications.</figcaption>
         </figure>
 
         <h4>Registration &amp; approval workflow</h4>
         <p>Anyone can submit a company at <code>/register-employer/</code>. The submission creates a <code>pending</code> employer post and a non-published user account in the <code>employer_team</code> role. Admins review the submission in wp-admin under <em>Employers</em>:</p>
         <ul>
-          <li><strong>Approve</strong> — flips the employer to <code>approved</code> + <code>publish</code>, sends a welcome email with login link.</li>
-          <li><strong>Decline</strong> — admin must enter a reason, which is included in the rejection email.</li>
-          <li><strong>Request more info</strong> — admin writes a free-text message asking for clarification. The applicant gets an email with the message and a link back to the form to amend the submission.</li>
+          <li><strong>Approve</strong> - flips the employer to <code>approved</code> + <code>publish</code>, sends a welcome email with login link.</li>
+          <li><strong>Decline</strong> - admin must enter a reason, which is included in the rejection email.</li>
+          <li><strong>Request more info</strong> - admin writes a free-text message asking for clarification. The applicant gets an email with the message and a link back to the form to amend the submission.</li>
         </ul>
 
         <h4>Company profile builder</h4>
@@ -1385,32 +1385,32 @@ section.search-hidden { display: none; }
         <h4>Posting a job</h4>
         <p>From the employer dashboard, <em>Post a Job</em> opens the job form. The form is organised into clearly-labelled sections:</p>
         <ul>
-          <li><strong>Basics</strong> — title, category, type, location (with autocomplete + "Pick on map" modal), remote-position flag.</li>
-          <li><strong>Vacancy Details</strong> — the main job description.</li>
-          <li><strong>Essential Criteria</strong> — must-have requirements.</li>
-          <li><strong>Desirable Criteria</strong> — nice-to-haves.</li>
-          <li><strong>Responsibilities</strong> — bulleted day-to-day duties.</li>
-          <li><strong>How to Apply</strong> — custom instructions to the candidate.</li>
-          <li><strong>Salary</strong> — either a single value or a range; configurable per job.</li>
-          <li><strong>Dates</strong> — opening date (defaults to publish date) and closing date (auto-expires past this).</li>
-          <li><strong>External apply</strong> — optional URL. When enabled, "Apply" buttons link to that URL and the internal apply form is bypassed.</li>
+          <li><strong>Basics</strong> - title, category, type, location (with autocomplete + "Pick on map" modal), remote-position flag.</li>
+          <li><strong>Vacancy Details</strong> - the main job description.</li>
+          <li><strong>Essential Criteria</strong> - must-have requirements.</li>
+          <li><strong>Desirable Criteria</strong> - nice-to-haves.</li>
+          <li><strong>Responsibilities</strong> - bulleted day-to-day duties.</li>
+          <li><strong>How to Apply</strong> - custom instructions to the candidate.</li>
+          <li><strong>Salary</strong> - either a single value or a range; configurable per job.</li>
+          <li><strong>Dates</strong> - opening date (defaults to publish date) and closing date (auto-expires past this).</li>
+          <li><strong>External apply</strong> - optional URL. When enabled, "Apply" buttons link to that URL and the internal apply form is bypassed.</li>
         </ul>
         <div class="callout warning">
           <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
           <div>
-            <strong>Pick from the autocomplete — don't manually edit</strong>
+            <strong>Pick from the autocomplete - don't manually edit</strong>
             <p>When entering an address, always select a result from the Places autocomplete dropdown. Typing or pasting an address manually <em>clears</em> the saved latitude/longitude (since the plugin can't be certain the new text still matches the previously-resolved place). Without coordinates, the job won't appear in radius-based search results.</p>
           </div>
         </div>
 
         <h4>Application management</h4>
-        <p>The Applications tab on the dashboard lists every application received across all of the company's jobs. Each row shows the applicant name, the job they applied to, the submission date, and the current status. Click any row to see the full application — applicant profile snapshot, attached resume, cover letter (text + file), and any additional documents — all previewed inline. From the same view, update the status, add internal notes, and contact the applicant.</p>
+        <p>The Applications tab on the dashboard lists every application received across all of the company's jobs. Each row shows the applicant name, the job they applied to, the submission date, and the current status. Click any row to see the full application - applicant profile snapshot, attached resume, cover letter (text + file), and any additional documents - all previewed inline. From the same view, update the status, add internal notes, and contact the applicant.</p>
 
         <h4>Team management</h4>
         <p>The Team tab lets a primary owner invite additional team members. Invitees receive an email and complete signup via a dedicated form. Once joined, they share access to the same company. The primary owner can also <strong>transfer ownership</strong> to another team member, which atomically swaps the <code>_user_id</code> primary-owner pointer.</p>
 
         <h4>Multi-owner / multi-company</h4>
-        <p>One user can be a co-owner of any number of companies, and one company can have multiple owners. When a user is linked to more than one company, an active-company switcher pill appears on the dashboard hero — clicking it lists all linked companies and lets them swap which one they're managing right now.</p>
+        <p>One user can be a co-owner of any number of companies, and one company can have multiple owners. When a user is linked to more than one company, an active-company switcher pill appears on the dashboard hero - clicking it lists all linked companies and lets them swap which one they're managing right now.</p>
 
         <h4>Position filled</h4>
         <p>Each job has a "Position filled" toggle. Once set, the job is removed from the public board automatically (without needing to set the closing date in the past). Useful when a vacancy fills mid-cycle.</p>
@@ -1419,15 +1419,15 @@ section.search-hidden { display: none; }
       <!-- 6.3 -->
       <section id="features-dual-role">
         <h3>Dual-Role Support <span class="section-badge">1.15.0+</span></h3>
-        <p>A single WordPress user can hold any combination of CareerNest roles plus standard WP roles — for example, <code>applicant</code> + <code>employer_team</code> + <code>administrator</code> all on one account. The plugin provides a coherent UX for these dual-role users: a mode switcher, upgrade-mode forms, and discovery affordances that nudge a user from one role into the other.</p>
+        <p>A single WordPress user can hold any combination of CareerNest roles plus standard WP roles - for example, <code>applicant</code> + <code>employer_team</code> + <code>administrator</code> all on one account. The plugin provides a coherent UX for these dual-role users: a mode switcher, upgrade-mode forms, and discovery affordances that nudge a user from one role into the other.</p>
 
         <figure>
           <div class="screenshot-placeholder"><span class="ph-label">Screenshot: "Viewing as:" mode switcher pill on a dashboard hero</span></div>
-          <figcaption>Mode switcher — a single click flips between the applicant and employer dashboards.</figcaption>
+          <figcaption>Mode switcher - a single click flips between the applicant and employer dashboards.</figcaption>
         </figure>
 
         <h4>Mode switcher</h4>
-        <p>When a user has both <code>applicant</code> and <code>employer_team</code> roles, a "Viewing as: <em>Applicant</em> ▼" pill appears in both dashboard heroes. Clicking it switches modes — under the hood, an AJAX call (<code>cn_switch_dashboard_mode</code>) writes <code>_active_dashboard_mode</code> user meta and reloads to the other dashboard. The login-redirect honours this preference, so a user who last switched to "Employer" lands back on the employer dashboard the next time they sign in.</p>
+        <p>When a user has both <code>applicant</code> and <code>employer_team</code> roles, a "Viewing as: <em>Applicant</em> ▼" pill appears in both dashboard heroes. Clicking it switches modes - under the hood, an AJAX call (<code>cn_switch_dashboard_mode</code>) writes <code>_active_dashboard_mode</code> user meta and reloads to the other dashboard. The login-redirect honours this preference, so a user who last switched to "Employer" lands back on the employer dashboard the next time they sign in.</p>
 
         <h4>Upgrade-mode register forms</h4>
         <p>When a logged-in applicant visits <code>/register-employer/</code>, the form detects the existing account and renders in <strong>upgrade mode</strong>: email is locked (no re-entry), password is hidden (the user is already authenticated), social buttons are hidden, and the submission adds the <code>employer_team</code> role to the existing user rather than creating a new account. The reverse works identically for employer-to-applicant upgrades.</p>
@@ -1436,7 +1436,7 @@ section.search-hidden { display: none; }
         <p>Users only become aware of dual-role if we tell them. Three nudges:</p>
         <ul>
           <li><strong>Dashboard sidebar cards.</strong> "Apply for jobs too →" on the employer dashboard (if no applicant role). "Hiring? Post a job →" on the applicant dashboard (if no employer role).</li>
-          <li><strong>Apply-button intercept.</strong> If an employer-only user clicks Apply on a job listing, an intercept card appears: "You're signed in as an employer. Add an applicant profile to apply →" — clicking takes them to the upgrade-mode register form.</li>
+          <li><strong>Apply-button intercept.</strong> If an employer-only user clicks Apply on a job listing, an intercept card appears: "You're signed in as an employer. Add an applicant profile to apply →" - clicking takes them to the upgrade-mode register form.</li>
           <li><strong>OAuth intent.</strong> Signing in via Google/LinkedIn from one of the register pages passes an <code>intent=add_employer</code> (or <code>add_applicant</code>) parameter through the OAuth flow, so the post-login redirect lands on the right upgrade flow rather than the default dashboard.</li>
         </ul>
 
@@ -1444,7 +1444,7 @@ section.search-hidden { display: none; }
           <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
           <div>
             <strong>Granting dual roles from admin</strong>
-            <p>An administrator can assign any combination of CN-managed roles to a user via <em>Users → Manage Roles</em>. This is the canonical role-management UI — see <a href="#features-admin">Administrator Tools</a> below.</p>
+            <p>An administrator can assign any combination of CN-managed roles to a user via <em>Users → Manage Roles</em>. This is the canonical role-management UI - see <a href="#features-admin">Administrator Tools</a> below.</p>
           </div>
         </div>
       </section>
@@ -1460,19 +1460,19 @@ section.search-hidden { display: none; }
         <h4>Google OAuth</h4>
         <p>Enable under <em>Settings → General → Social Login</em>. You'll need a Google Cloud Console project with OAuth 2.0 credentials configured. The plugin handles three OAuth paths automatically:</p>
         <ul>
-          <li><strong>New user, picks Google</strong> — lands on a role-chooser page after Google authentication, then completes signup.</li>
-          <li><strong>Existing user, signs in via Google</strong> — if the Google email matches a WP user, accounts auto-link.</li>
-          <li><strong>Logged-in user, clicks "Connect Google"</strong> from the Linked Accounts panel on their dashboard — links Google to their existing account for future passwordless sign-in.</li>
+          <li><strong>New user, picks Google</strong> - lands on a role-chooser page after Google authentication, then completes signup.</li>
+          <li><strong>Existing user, signs in via Google</strong> - if the Google email matches a WP user, accounts auto-link.</li>
+          <li><strong>Logged-in user, clicks "Connect Google"</strong> from the Linked Accounts panel on their dashboard - links Google to their existing account for future passwordless sign-in.</li>
         </ul>
 
         <h4>LinkedIn OAuth</h4>
-        <p>Same architecture as Google. Configure under <em>Settings → General → Social Login</em>. LinkedIn's permissions model is more restrictive than Google's — only basic profile + email scopes are requested.</p>
+        <p>Same architecture as Google. Configure under <em>Settings → General → Social Login</em>. LinkedIn's permissions model is more restrictive than Google's - only basic profile + email scopes are requested.</p>
 
         <h4>Two-Factor Authentication</h4>
-        <p>If a third-party 2FA plugin is installed (e.g. the official <em>Two Factor</em> plugin or <em>Wordfence Login Security</em>), the Linked Accounts panel surfaces a "Set up 2FA" link that points to the standard wp-admin profile route. Enable the row's visibility under <em>Settings → Social Login → Show 2FA in Linked Accounts</em>. The plugin doesn't ship its own 2FA implementation — it integrates with whatever you already use.</p>
+        <p>If a third-party 2FA plugin is installed (e.g. the official <em>Two Factor</em> plugin or <em>Wordfence Login Security</em>), the Linked Accounts panel surfaces a "Set up 2FA" link that points to the standard wp-admin profile route. Enable the row's visibility under <em>Settings → Social Login → Show 2FA in Linked Accounts</em>. The plugin doesn't ship its own 2FA implementation - it integrates with whatever you already use.</p>
 
         <h4>Password reset / account deletion</h4>
-        <p>The <code>/forgot-password/</code> and <code>/reset-password/</code> pages are auto-created on activation and use the standard WP password-reset email flow (routed through <code>Mailer::*</code> for the disable-emails-during-dev override). Account deletion is request-based — users submit a deletion request from their dashboard, an admin reviews and approves it in wp-admin, and only then is the WP user actually deleted (GDPR Article 17 friendly).</p>
+        <p>The <code>/forgot-password/</code> and <code>/reset-password/</code> pages are auto-created on activation and use the standard WP password-reset email flow (routed through <code>Mailer::*</code> for the disable-emails-during-dev override). Account deletion is request-based - users submit a deletion request from their dashboard, an admin reviews and approves it in wp-admin, and only then is the WP user actually deleted (GDPR Article 17 friendly).</p>
 
         <h4>Personal Data Exporter / Eraser</h4>
         <p>The plugin registers handlers with the standard WP Personal Data Exporter and Eraser (under <em>Tools → Export Personal Data</em> / <em>Erase Personal Data</em>). OAuth-linked metadata (provider ID, email at provider, avatar URL, link timestamp) is included in both the export bundle and the erase pass.</p>
@@ -1481,23 +1481,23 @@ section.search-hidden { display: none; }
       <!-- 6.5 -->
       <section id="features-job-board">
         <h3>Job Board &amp; Search</h3>
-        <p>The public job board lives at <code>/jobs/</code> (the page slug is configurable under <em>Settings → Pages</em>). It's a single-page experience powered by AJAX — filter changes refresh the result set without a full page reload.</p>
+        <p>The public job board lives at <code>/jobs/</code> (the page slug is configurable under <em>Settings → Pages</em>). It's a single-page experience powered by AJAX - filter changes refresh the result set without a full page reload.</p>
 
         <figure>
           <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Public job board with filter sidebar and result cards</span></div>
-          <figcaption>The public job board — keyword + filters in the sidebar, paginated results in the main column.</figcaption>
+          <figcaption>The public job board - keyword + filters in the sidebar, paginated results in the main column.</figcaption>
         </figure>
 
         <h4>Available filters</h4>
         <ul>
-          <li><strong>Keyword</strong> — searches job title + description content.</li>
-          <li><strong>Category</strong> — taxonomy filter, multi-select.</li>
-          <li><strong>Job type</strong> — Full-time, Part-time, Contract, Casual.</li>
-          <li><strong>Location</strong> — Places autocomplete on the input. Hidden lat/lng power the radius search.</li>
-          <li><strong>Radius</strong> — slider, 0 to 100 km. <em>0 = "Any distance"</em> shows every job sorted by distance from the searched location (no geographic cut-off).</li>
-          <li><strong>Employer</strong> — filter to a specific company.</li>
-          <li><strong>Salary range</strong> — dual-handle slider.</li>
-          <li><strong>Date posted</strong> — last 24 h, week, month, all time.</li>
+          <li><strong>Keyword</strong> - searches job title + description content.</li>
+          <li><strong>Category</strong> - taxonomy filter, multi-select.</li>
+          <li><strong>Job type</strong> - Full-time, Part-time, Contract, Casual.</li>
+          <li><strong>Location</strong> - Places autocomplete on the input. Hidden lat/lng power the radius search.</li>
+          <li><strong>Radius</strong> - slider, 0 to 100 km. <em>0 = "Any distance"</em> shows every job sorted by distance from the searched location (no geographic cut-off).</li>
+          <li><strong>Employer</strong> - filter to a specific company.</li>
+          <li><strong>Salary range</strong> - dual-handle slider.</li>
+          <li><strong>Date posted</strong> - last 24 h, week, month, all time.</li>
         </ul>
 
         <h4>Distance badges</h4>
@@ -1523,22 +1523,22 @@ section.search-hidden { display: none; }
 
         <figure>
           <div class="screenshot-placeholder"><span class="ph-label">Screenshot: Users → Manage Roles grid with toggle buttons</span></div>
-          <figcaption>The Manage Roles page — a bird's-eye view of every user's role configuration, with click-to-toggle controls.</figcaption>
+          <figcaption>The Manage Roles page - a bird's-eye view of every user's role configuration, with click-to-toggle controls.</figcaption>
         </figure>
 
         <h4>Users → Manage Roles <span class="section-badge">1.17.0</span></h4>
         <p>A dedicated page (under the standard <em>Users</em> menu) for granting and revoking CN-managed roles. Built as an extended <code>WP_List_Table</code>:</p>
         <ul>
           <li>Every user is a row, every CN-managed role is a column.</li>
-          <li>Each cell is a click-to-toggle button — ✓ (granted), ✗ (not granted), spinner (in progress).</li>
+          <li>Each cell is a click-to-toggle button - ✓ (granted), ✗ (not granted), spinner (in progress).</li>
           <li>Search filter (display name + email), role filter dropdown (All / Has applicant / Has employer / Dual-role / None), pagination (20 per page).</li>
-          <li><strong>Last-administrator guard</strong> — the page refuses to remove <code>administrator</code> from the last admin on the site.</li>
-          <li><strong>Self-edit guard</strong> — your own row's cells are disabled (preventing accidental self-demotion).</li>
+          <li><strong>Last-administrator guard</strong> - the page refuses to remove <code>administrator</code> from the last admin on the site.</li>
+          <li><strong>Self-edit guard</strong> - your own row's cells are disabled (preventing accidental self-demotion).</li>
           <li>Granting <code>applicant</code> for the first time auto-creates an applicant CPT stub so the user has data to render on their dashboard.</li>
         </ul>
 
         <h4>Defensive role-wipe protection <span class="section-badge">1.17.2</span></h4>
-        <p>WordPress's standard user-edit form calls <code>$user-&gt;set_role($primary)</code> on every save — even when the role dropdown wasn't touched — which destructively wipes all roles and sets exactly one. The plugin hooks <code>set_user_role</code> at priority 999 to restore any CN-managed roles that the wipe removed. This means roles granted via Manage Roles survive ordinary user-profile edits.</p>
+        <p>WordPress's standard user-edit form calls <code>$user-&gt;set_role($primary)</code> on every save - even when the role dropdown wasn't touched - which destructively wipes all roles and sets exactly one. The plugin hooks <code>set_user_role</code> at priority 999 to restore any CN-managed roles that the wipe removed. This means roles granted via Manage Roles survive ordinary user-profile edits.</p>
 
         <h4>Linked Employers panel</h4>
         <p>On the standard user-edit screen (<em>Users → All Users → Edit</em>), users in the <code>employer_team</code> role see a "Linked Employers" panel. It lists every company they're currently linked to and provides add/remove controls. Behind the scenes, this uses the same AJAX endpoints as the employer-side meta box.</p>
@@ -1546,26 +1546,26 @@ section.search-hidden { display: none; }
         <h4>Per-CPT meta boxes</h4>
         <p>Every custom post type has tailored meta boxes in its edit screen:</p>
         <ul>
-          <li><strong>job_listing</strong> — Job Details (location, salary, dates, content sections, employer assignment).</li>
-          <li><strong>employer</strong> — Employer Details, Company Owners, Team Management, Employer Team Members.</li>
-          <li><strong>applicant</strong> — Applicant Details, Skills, Work Preferences.</li>
-          <li><strong>job_application</strong> — Application Details (with resume + cover letter + extra documents previews), Application Status.</li>
+          <li><strong>job_listing</strong> - Job Details (location, salary, dates, content sections, employer assignment).</li>
+          <li><strong>employer</strong> - Employer Details, Company Owners, Team Management, Employer Team Members.</li>
+          <li><strong>applicant</strong> - Applicant Details, Skills, Work Preferences.</li>
+          <li><strong>job_application</strong> - Application Details (with resume + cover letter + extra documents previews), Application Status.</li>
         </ul>
 
         <h4>Custom admin list columns + quick filters</h4>
         <p>The admin list tables for jobs, employers, applicants, and applications have custom columns (logo, location, status, employer name, etc.) and quick-filter dropdowns above the table.</p>
 
         <h4>Email template visual editor <span class="section-badge">1.9.0</span></h4>
-        <p>Under <em>Settings → CareerNest Settings → Email Templates</em>: a 3-panel UI — left sidebar with the 15 templates, centre column with a TinyMCE editor, right column with a live-preview iframe. Saves are AJAX per-template. Available actions: <em>Save</em>, <em>Reset to default</em>, <em>Send test email</em> (to the logged-in admin's address).</p>
+        <p>Under <em>Settings → CareerNest Settings → Email Templates</em>: a 3-panel UI - left sidebar with the 15 templates, centre column with a TinyMCE editor, right column with a live-preview iframe. Saves are AJAX per-template. Available actions: <em>Save</em>, <em>Reset to default</em>, <em>Send test email</em> (to the logged-in admin's address).</p>
 
         <h4>Import / Export</h4>
-        <p>Under <em>CareerNest → Import / Export</em>: download a CSV template, populate it, upload it. Supported for both jobs and employers. The import is transactional — if any row fails validation, no rows are committed.</p>
+        <p>Under <em>CareerNest → Import / Export</em>: download a CSV template, populate it, upload it. Supported for both jobs and employers. The import is transactional - if any row fails validation, no rows are committed.</p>
 
         <h4>Dev-mode email kill switch</h4>
-        <p>Under <em>Settings → General → Disable Emails</em>. When enabled, every email sent by the plugin is logged to <code>error_log</code> instead of being delivered. A persistent warning banner appears at the top of wp-admin to remind you it's on. Essential for testing — toggle it off before going live.</p>
+        <p>Under <em>Settings → General → Disable Emails</em>. When enabled, every email sent by the plugin is logged to <code>error_log</code> instead of being delivered. A persistent warning banner appears at the top of wp-admin to remind you it's on. Essential for testing - toggle it off before going live.</p>
 
         <h4>Debug: Show Coordinates</h4>
-        <p>Also under <em>Settings → General</em>. When enabled, every job card on the public board displays the saved latitude/longitude. Useful for diagnosing the most common location-search bug — jobs saved without coordinates.</p>
+        <p>Also under <em>Settings → General</em>. When enabled, every job card on the public board displays the saved latitude/longitude. Useful for diagnosing the most common location-search bug - jobs saved without coordinates.</p>
       </section>
 
       <!-- 6.7 -->
@@ -1575,17 +1575,17 @@ section.search-hidden { display: none; }
 
         <h4>Platform identity</h4>
         <ul>
-          <li><strong>Platform name</strong> — replaces "CareerNest" everywhere user-facing. Set under <em>Branding → Platform Name</em>.</li>
-          <li><strong>Platform logo</strong> — uploaded via the standard WP media library. Used in headers, emails, and the login page.</li>
+          <li><strong>Platform name</strong> - replaces "CareerNest" everywhere user-facing. Set under <em>Branding → Platform Name</em>.</li>
+          <li><strong>Platform logo</strong> - uploaded via the standard WP media library. Used in headers, emails, and the login page.</li>
         </ul>
 
         <h4>Email branding</h4>
         <ul>
-          <li><strong>Email From Name</strong> — sender display name. Defaults to <em>"The {Platform Name} Team"</em>.</li>
-          <li><strong>Email From Address</strong> — sender address. Defaults to the WP admin email.</li>
-          <li><strong>Support Email</strong> — surfaced inside email bodies via the <code>{{contact_email}}</code> placeholder. Defaults to WP admin email.</li>
+          <li><strong>Email From Name</strong> - sender display name. Defaults to <em>"The {Platform Name} Team"</em>.</li>
+          <li><strong>Email From Address</strong> - sender address. Defaults to the WP admin email.</li>
+          <li><strong>Support Email</strong> - surfaced inside email bodies via the <code>{{contact_email}}</code> placeholder. Defaults to WP admin email.</li>
         </ul>
-        <p>The <code>wp_mail_from</code> / <code>wp_mail_from_name</code> filters are <em>scoped</em> — they only apply during <code>Mailer::*</code> calls (guarded by a static flag), so any other plugin sending emails on the same site is unaffected.</p>
+        <p>The <code>wp_mail_from</code> / <code>wp_mail_from_name</code> filters are <em>scoped</em> - they only apply during <code>Mailer::*</code> calls (guarded by a static flag), so any other plugin sending emails on the same site is unaffected.</p>
 
         <h4>Brand colours via CSS variables</h4>
         <p>Set under <em>Appearance</em>:</p>
@@ -1690,21 +1690,21 @@ section.search-hidden { display: none; }
           <h4>Email Templates → <code>careernest_email_templates</code></h4>
           <p>This tab uses a custom 3-panel visual editor (sidebar + TinyMCE + live-preview iframe) instead of the standard WordPress settings rendering. Saves are AJAX per-template. The 15 registered templates:</p>
           <ol>
-            <li><strong>Applicant welcome</strong> — sent on applicant account creation.</li>
-            <li><strong>Employer signup acknowledgement</strong> — confirms receipt of the employer registration.</li>
-            <li><strong>Employer approved</strong> — sent when an admin approves the employer.</li>
-            <li><strong>Employer declined</strong> — sent when an admin declines, including the reason.</li>
-            <li><strong>Employer info-requested</strong> — sent when an admin requests more information.</li>
-            <li><strong>Employee / team-member signup acknowledgement</strong> — confirms a team-member join request.</li>
-            <li><strong>Employee approved</strong> — confirms the join.</li>
-            <li><strong>Employee declined</strong> — declines the join.</li>
-            <li><strong>Admin notification (generic)</strong> — system notification to site admins.</li>
-            <li><strong>Team member added (to existing employer)</strong> — confirms the new member to the team.</li>
-            <li><strong>Team access removed</strong> — notifies a user that they've been removed from a team.</li>
-            <li><strong>Company ownership transfer initiated</strong> — sent to the recipient of an ownership transfer.</li>
-            <li><strong>Company ownership transfer completed</strong> — confirms the transfer once accepted.</li>
-            <li><strong>Application status changed</strong> — notifies the applicant when status changes.</li>
-            <li><strong>Application withdrawn</strong> — confirms a withdrawal.</li>
+            <li><strong>Applicant welcome</strong> - sent on applicant account creation.</li>
+            <li><strong>Employer signup acknowledgement</strong> - confirms receipt of the employer registration.</li>
+            <li><strong>Employer approved</strong> - sent when an admin approves the employer.</li>
+            <li><strong>Employer declined</strong> - sent when an admin declines, including the reason.</li>
+            <li><strong>Employer info-requested</strong> - sent when an admin requests more information.</li>
+            <li><strong>Employee / team-member signup acknowledgement</strong> - confirms a team-member join request.</li>
+            <li><strong>Employee approved</strong> - confirms the join.</li>
+            <li><strong>Employee declined</strong> - declines the join.</li>
+            <li><strong>Admin notification (generic)</strong> - system notification to site admins.</li>
+            <li><strong>Team member added (to existing employer)</strong> - confirms the new member to the team.</li>
+            <li><strong>Team access removed</strong> - notifies a user that they've been removed from a team.</li>
+            <li><strong>Company ownership transfer initiated</strong> - sent to the recipient of an ownership transfer.</li>
+            <li><strong>Company ownership transfer completed</strong> - confirms the transfer once accepted.</li>
+            <li><strong>Application status changed</strong> - notifies the applicant when status changes.</li>
+            <li><strong>Application withdrawn</strong> - confirms a withdrawal.</li>
           </ol>
           <p><code>{{variable}}</code> placeholders are replaced server-side. Default variables available in every template: <code>{{site_name}}</code>, <code>{{site_url}}</code>, <code>{{contact_email}}</code>, <code>{{current_year}}</code>, <code>{{jobs_url}}</code>. Per-template variables are listed inline in the editor sidebar.</p>
         </div>
@@ -1714,8 +1714,8 @@ section.search-hidden { display: none; }
           <div class="table-wrap"><table>
             <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
             <tbody>
-              <tr><td><code>recent_jobs_count</code></td><td>5</td><td>How many recent jobs to show on the dashboard. 3–20.</td></tr>
-              <tr><td><code>recent_apps_count</code></td><td>5</td><td>How many recent applications to show on the dashboard. 3–20.</td></tr>
+              <tr><td><code>recent_jobs_count</code></td><td>5</td><td>How many recent jobs to show on the dashboard. 3-20.</td></tr>
+              <tr><td><code>recent_apps_count</code></td><td>5</td><td>How many recent applications to show on the dashboard. 3-20.</td></tr>
               <tr><td><code>welcome_message</code></td><td>empty</td><td>Free-text shown at the top of the employer dashboard. Leave empty to use the default greeting.</td></tr>
             </tbody>
           </table></div>
@@ -1725,8 +1725,8 @@ section.search-hidden { display: none; }
       <h3>Auto-managed options (not user-editable)</h3>
       <p>Two additional options are populated automatically and shouldn't be edited by hand:</p>
       <ul>
-        <li><code>careernest_pages</code> — created on activation. A page-slug → page-ID map for every managed page (jobs, login, applicant-dashboard, employer-dashboard, register pages, password-reset pages). The plugin uses this map in its <code>template_include</code> filter to swap in the right template per page.</li>
-        <li><code>careernest_recent_activity</code> — internal dashboard feed buffer. Stores the last N items shown in the dashboard activity widget.</li>
+        <li><code>careernest_pages</code> - created on activation. A page-slug → page-ID map for every managed page (jobs, login, applicant-dashboard, employer-dashboard, register pages, password-reset pages). The plugin uses this map in its <code>template_include</code> filter to swap in the right template per page.</li>
+        <li><code>careernest_recent_activity</code> - internal dashboard feed buffer. Stores the last N items shown in the dashboard activity widget.</li>
       </ul>
       <div class="callout warning">
         <span class="callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
@@ -1742,7 +1742,7 @@ section.search-hidden { display: none; }
          ========================================================== -->
     <section id="developer">
       <h2>Developer Reference <span class="section-badge">Advanced</span></h2>
-      <p class="lead">Everything theme developers and plugin extenders need to integrate with CareerNest — shortcodes, hooks, filters, helper functions, helper classes, and an overview of the AJAX surface.</p>
+      <p class="lead">Everything theme developers and plugin extenders need to integrate with CareerNest - shortcodes, hooks, filters, helper functions, helper classes, and an overview of the AJAX surface.</p>
 
       <section id="dev-shortcodes">
         <h3>8.1 Shortcodes</h3>
@@ -1750,7 +1750,7 @@ section.search-hidden { display: none; }
         <div class="table-wrap"><table>
           <thead><tr><th>Tag</th><th>Renders</th></tr></thead>
           <tbody>
-            <tr><td><code>[careernest_login]</code></td><td>Inline login + register form. No role chooser — the form links to dedicated register pages for role selection.</td></tr>
+            <tr><td><code>[careernest_login]</code></td><td>Inline login + register form. No role chooser - the form links to dedicated register pages for role selection.</td></tr>
             <tr><td><code>[careernest_job_search]</code></td><td>Compact search box with category + type + location filters. Useful as a homepage hero or sidebar widget.</td></tr>
             <tr><td><code>[careernest_job_categories]</code></td><td>Grid of category cards with live job counts.</td></tr>
             <tr><td><code>[careernest_jobs_by_category slug="..."]</code></td><td>Filtered job list for a specific category slug. Accepts <code>slug</code>, <code>per_page</code>, and <code>columns</code> attributes.</td></tr>
@@ -1768,7 +1768,7 @@ do_action('careernest_application_withdrawn', int $application_id);
 // Fired when an employer updates application status.
 do_action('careernest_application_status_changed', int $app_id, string $old_status, string $new_status);
 
-// Daily cron tick — auto-expires jobs past _closing_date.
+// Daily cron tick - auto-expires jobs past _closing_date.
 do_action('careernest_expire_jobs');</code></pre>
         <p>Listen for these from any plugin or theme via <code>add_action()</code>. Common use case: integrate with a CRM by posting to a webhook whenever an application status changes.</p>
       </section>
@@ -1785,7 +1785,7 @@ apply_filters('careernest_single_applicant_template',$template, $original);
 apply_filters('careernest_page_templates', $template_map);
 apply_filters("careernest_page_template_{$page_slug}", $template);
 apply_filters('careernest_page_template', $template, $page_slug);</code></pre>
-        <p>Return the absolute path to your replacement template file. The plugin's default templates live in <code>career-nest/templates/</code> — copy any of them into your theme as a starting point.</p>
+        <p>Return the absolute path to your replacement template file. The plugin's default templates live in <code>career-nest/templates/</code> - copy any of them into your theme as a starting point.</p>
       </section>
 
       <section id="dev-helpers">
@@ -1794,7 +1794,7 @@ apply_filters('careernest_page_template', $template, $page_slug);</code></pre>
 <pre><code class="language-php">cn_get_platform_name();      // "CareerNest" or branded override
 cn_get_email_from_name();    // Email sender display name
 cn_get_email_from_address(); // Email sender address</code></pre>
-        <p>Use these everywhere user-facing strings refer to the platform — they automatically honour the white-label settings.</p>
+        <p>Use these everywhere user-facing strings refer to the platform - they automatically honour the white-label settings.</p>
       </section>
 
       <section id="dev-classes">
@@ -1802,13 +1802,13 @@ cn_get_email_from_address(); // Email sender address</code></pre>
         <p>Two static helper classes encapsulate the most important plugin logic. Always use these rather than reading meta directly.</p>
 
         <h4>Ownership &amp; access checks</h4>
-<pre><code class="language-php">// Always use these — never read _user_id / _owner_ids directly.
+<pre><code class="language-php">// Always use these - never read _user_id / _owner_ids directly.
 CareerNest\Team_Manager::is_owner(int $user_id, int $employer_id): bool;
 CareerNest\Team_Manager::user_can_manage_employer(int $user_id, int $employer_id): bool;</code></pre>
-        <p><code>is_owner()</code> checks both the legacy scalar <code>_user_id</code> (primary owner) AND the modern <code>_owner_ids</code> array (co-owners). <code>user_can_manage_employer()</code> is broader — it additionally walks the user-side <code>_employer_id</code> scalar and <code>_employer_ids</code> array. Use the former for "is this user specifically an owner?" and the latter for "can this user act on this employer?".</p>
+        <p><code>is_owner()</code> checks both the legacy scalar <code>_user_id</code> (primary owner) AND the modern <code>_owner_ids</code> array (co-owners). <code>user_can_manage_employer()</code> is broader - it additionally walks the user-side <code>_employer_id</code> scalar and <code>_employer_ids</code> array. Use the former for "is this user specifically an owner?" and the latter for "can this user act on this employer?".</p>
 
         <h4>Dual-role awareness</h4>
-<pre><code class="language-php">// Returns 'applicant' or 'employer' — honours the user's last-chosen mode.
+<pre><code class="language-php">// Returns 'applicant' or 'employer' - honours the user's last-chosen mode.
 CareerNest\Profile_Helper::get_active_dashboard_mode(int $user_id): string;
 
 // True if the user holds both applicant AND employer_team roles.
@@ -1828,7 +1828,7 @@ CareerNest\Email\Mailer::send_plain(string $to, string $subject, string $message
 
 // Notification to the site admin (uses WP admin email).
 CareerNest\Email\Mailer::send_admin_notification(string $subject, string $message);</code></pre>
-        <p>Never call <code>wp_mail()</code> directly from inside CN-related code — it bypasses the dev-mode disable flag and the scoped from-address override.</p>
+        <p>Never call <code>wp_mail()</code> directly from inside CN-related code - it bypasses the dev-mode disable flag and the scoped from-address override.</p>
       </section>
 
       <section id="dev-ajax">
@@ -1836,23 +1836,23 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
         <p>The plugin exposes <strong>35+ AJAX actions</strong> (half legacy <code>careernest_*</code>, half modern <code>cn_*</code>) and <strong>13 <code>admin_post_*</code> handlers</strong>. They power the approval workflows, role toggles, dashboard mode switching, file uploads, application status updates, and CSV import/export. A full table is maintained in the plugin's internal <code>CLAUDE.md</code>.</p>
         <h4>Notable AJAX endpoints</h4>
         <ul>
-          <li><code>careernest_filter_jobs</code> — the public job-board filter (with nopriv variant).</li>
-          <li><code>cn_toggle_user_role</code> — the Manage Roles page's toggle handler.</li>
-          <li><code>cn_switch_dashboard_mode</code> — dual-role mode switcher.</li>
-          <li><code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> — multi-owner management.</li>
-          <li><code>cn_switch_employer</code> — active-company switcher for users owning multiple.</li>
-          <li><code>cn_create_job</code> / <code>cn_update_job</code> / <code>cn_delete_job</code> — front-end job CRUD.</li>
-          <li><code>cn_update_app_status</code> — application status update (fires <code>careernest_application_status_changed</code>).</li>
-          <li><code>cn_upload_avatar</code> / <code>cn_upload_resume</code> — applicant file uploads.</li>
+          <li><code>careernest_filter_jobs</code> - the public job-board filter (with nopriv variant).</li>
+          <li><code>cn_toggle_user_role</code> - the Manage Roles page's toggle handler.</li>
+          <li><code>cn_switch_dashboard_mode</code> - dual-role mode switcher.</li>
+          <li><code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> - multi-owner management.</li>
+          <li><code>cn_switch_employer</code> - active-company switcher for users owning multiple.</li>
+          <li><code>cn_create_job</code> / <code>cn_update_job</code> / <code>cn_delete_job</code> - front-end job CRUD.</li>
+          <li><code>cn_update_app_status</code> - application status update (fires <code>careernest_application_status_changed</code>).</li>
+          <li><code>cn_upload_avatar</code> / <code>cn_upload_resume</code> - applicant file uploads.</li>
         </ul>
         <h4>Notable admin_post endpoints</h4>
         <ul>
-          <li><code>cn_approve_employer</code> / <code>cn_decline_employer</code> / <code>cn_request_info</code> — employer approval workflow.</li>
-          <li><code>cn_approve_employee</code> / <code>cn_decline_employee</code> — team-member approval workflow.</li>
-          <li><code>cn_approve_deletion</code> / <code>cn_decline_deletion</code> — GDPR deletion-request workflow.</li>
-          <li><code>cn_export_jobs</code> / <code>cn_import_jobs</code> / <code>cn_export_employers</code> / <code>cn_import_employers</code> — CSV import/export.</li>
+          <li><code>cn_approve_employer</code> / <code>cn_decline_employer</code> / <code>cn_request_info</code> - employer approval workflow.</li>
+          <li><code>cn_approve_employee</code> / <code>cn_decline_employee</code> - team-member approval workflow.</li>
+          <li><code>cn_approve_deletion</code> / <code>cn_decline_deletion</code> - GDPR deletion-request workflow.</li>
+          <li><code>cn_export_jobs</code> / <code>cn_import_jobs</code> / <code>cn_export_employers</code> / <code>cn_import_employers</code> - CSV import/export.</li>
         </ul>
-        <p>When adding a new AJAX endpoint, register the <code>wp_ajax_*</code> hook unconditionally (and <code>wp_ajax_nopriv_*</code> if it's a public endpoint). Capability and nonce checks go inside the handler. The same rule applies to <code>admin_post_*</code> handlers — register in <code>hooks()</code> regardless of screen, since <code>admin-post.php</code> requests never trigger <code>admin_menu</code> or <code>current_screen</code>.</p>
+        <p>When adding a new AJAX endpoint, register the <code>wp_ajax_*</code> hook unconditionally (and <code>wp_ajax_nopriv_*</code> if it's a public endpoint). Capability and nonce checks go inside the handler. The same rule applies to <code>admin_post_*</code> handlers - register in <code>hooks()</code> regardless of screen, since <code>admin-post.php</code> requests never trigger <code>admin_menu</code> or <code>current_screen</code>.</p>
       </section>
     </section>
 
@@ -1871,8 +1871,8 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-1-content" role="region" aria-labelledby="faq-1-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> Two common culprits. First: jobs were saved without latitude/longitude — every keystroke in the address field clears the saved coordinates (the plugin can't be certain the new text still matches the previously-resolved place). Toggle <em>Settings → General → Debug: Show Coordinates</em> ON to spot jobs missing coords on the job board. Second (resolved in 1.17.4): the legacy 100 km cap on "Any distance" was silently bounding country-level searches.</p>
-              <p><strong>Fix.</strong> For affected jobs, edit each one and re-pick the address from the Places autocomplete dropdown (don't type it). For the 100 km cap, upgrade to 1.17.4+ — "Any distance" now applies no SQL geo filter, letting the post-query haversine pass handle distance badges and sorting across the entire result set.</p>
+              <p><strong>Cause.</strong> Two common culprits. First: jobs were saved without latitude/longitude - every keystroke in the address field clears the saved coordinates (the plugin can't be certain the new text still matches the previously-resolved place). Toggle <em>Settings → General → Debug: Show Coordinates</em> ON to spot jobs missing coords on the job board. Second (resolved in 1.17.4): the legacy 100 km cap on "Any distance" was silently bounding country-level searches.</p>
+              <p><strong>Fix.</strong> For affected jobs, edit each one and re-pick the address from the Places autocomplete dropdown (don't type it). For the 100 km cap, upgrade to 1.17.4+ - "Any distance" now applies no SQL geo filter, letting the post-query haversine pass handle distance badges and sorting across the entire result set.</p>
             </div>
           </div>
         </div>
@@ -1884,7 +1884,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-2-content" role="region" aria-labelledby="faq-2-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> WordPress's <code>edit_user()</code> function calls <code>$user-&gt;set_role($primary)</code> on every user-edit form save — even when the role dropdown wasn't touched. <code>set_role()</code> is destructive: it wipes ALL roles and capabilities and sets exactly one.</p>
+              <p><strong>Cause.</strong> WordPress's <code>edit_user()</code> function calls <code>$user-&gt;set_role($primary)</code> on every user-edit form save - even when the role dropdown wasn't touched. <code>set_role()</code> is destructive: it wipes ALL roles and capabilities and sets exactly one.</p>
               <p><strong>Fix.</strong> Resolved in 1.17.2 via a defensive <code>set_user_role</code> hook at priority 999. The hook receives the wiped <code>$old_roles</code> array and restores any CN-managed roles (<code>administrator</code>, <code>applicant</code>, <code>employer_team</code>, <code>aes_admin</code>) that were removed. Upgrade to 1.17.2+ and the issue disappears.</p>
             </div>
           </div>
@@ -1897,7 +1897,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-3-content" role="region" aria-labelledby="faq-3-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> The wp-admin redirect guard in <code>Admin::redirect_roles_from_admin()</code> was matching on the <code>applicant</code> role first and bouncing the user back to the applicant dashboard — without ever checking whether the user also held <code>administrator</code>.</p>
+              <p><strong>Cause.</strong> The wp-admin redirect guard in <code>Admin::redirect_roles_from_admin()</code> was matching on the <code>applicant</code> role first and bouncing the user back to the applicant dashboard - without ever checking whether the user also held <code>administrator</code>.</p>
               <p><strong>Fix.</strong> Resolved in 1.17.3. The guard now bypasses if <code>current_user_can('edit_posts')</code> returns true, which covers <code>administrator</code>, <code>aes_admin</code>, and the standard WP <code>editor</code>/<code>author</code>/<code>contributor</code> roles. Pure <code>applicant</code> and <code>employer_team</code> users (no <code>edit_posts</code> capability) still get redirected as expected.</p>
             </div>
           </div>
@@ -1910,7 +1910,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-4-content" role="region" aria-labelledby="faq-4-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> The files were stored correctly all along (the upload pipeline validates real MIME, writes the attachment, and stores its ID in <code>_cover_letter_file_id</code> / <code>_other_document_ids</code>), but the employer-facing application templates never read those meta keys — only <code>_resume_id</code> was rendered.</p>
+              <p><strong>Cause.</strong> The files were stored correctly all along (the upload pipeline validates real MIME, writes the attachment, and stores its ID in <code>_cover_letter_file_id</code> / <code>_other_document_ids</code>), but the employer-facing application templates never read those meta keys - only <code>_resume_id</code> was rendered.</p>
               <p><strong>Fix.</strong> Resolved in 1.13.2. Cover-letter files and other documents now appear in both the front-end Applications page (under "Documents" with download links) and the wp-admin application meta box (with replace/remove affordances).</p>
             </div>
           </div>
@@ -1923,7 +1923,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-5-content" role="region" aria-labelledby="faq-5-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> Two front-end templates (<code>single-employer.php</code> and <code>template-employer-profile-edit.php</code>) used a hand-rolled scalar-only ownership check that compared <code>_user_id</code> (primary owner) and <code>_employer_id</code> (active company). Co-owners — users in the modern <code>_owner_ids</code> array but not the legacy scalar — failed both halves of the check.</p>
+              <p><strong>Cause.</strong> Two front-end templates (<code>single-employer.php</code> and <code>template-employer-profile-edit.php</code>) used a hand-rolled scalar-only ownership check that compared <code>_user_id</code> (primary owner) and <code>_employer_id</code> (active company). Co-owners - users in the modern <code>_owner_ids</code> array but not the legacy scalar - failed both halves of the check.</p>
               <p><strong>Fix.</strong> Resolved in 1.17.1. Both templates now use <code>Team_Manager::is_owner()</code> / <code>user_can_manage_employer()</code>, which check the modern <code>_owner_ids</code> array alongside the legacy scalar.</p>
             </div>
           </div>
@@ -1936,8 +1936,8 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-6-content" role="region" aria-labelledby="faq-6-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> First check: <em>Settings → General → Disable Emails</em>. When this is ON, every email is silently logged to <code>error_log</code> instead of being sent — a yellow warning banner appears at the top of wp-admin to remind you. If that's off, check that the WP admin email is configured correctly; if you're using an SMTP plugin, verify it's working independently.</p>
-              <p><strong>Fix.</strong> Toggle <em>Disable Emails</em> OFF before going live. If you have custom CN-related code, never call <code>wp_mail()</code> directly — always go through <code>Mailer::send()</code>, <code>Mailer::send_plain()</code>, or <code>Mailer::send_admin_notification()</code>, which respect the dev-mode flag.</p>
+              <p><strong>Cause.</strong> First check: <em>Settings → General → Disable Emails</em>. When this is ON, every email is silently logged to <code>error_log</code> instead of being sent - a yellow warning banner appears at the top of wp-admin to remind you. If that's off, check that the WP admin email is configured correctly; if you're using an SMTP plugin, verify it's working independently.</p>
+              <p><strong>Fix.</strong> Toggle <em>Disable Emails</em> OFF before going live. If you have custom CN-related code, never call <code>wp_mail()</code> directly - always go through <code>Mailer::send()</code>, <code>Mailer::send_plain()</code>, or <code>Mailer::send_admin_notification()</code>, which respect the dev-mode flag.</p>
             </div>
           </div>
         </div>
@@ -1963,7 +1963,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           <div class="accordion-content" id="faq-8-content" role="region" aria-labelledby="faq-8-trigger">
             <div class="accordion-content-inner">
               <p><strong>Cause.</strong> The "Linked Employers" panel on the user-edit screen only renders for users in the <code>employer_team</code> role. If the user doesn't have that role yet, the panel is hidden.</p>
-              <p><strong>Fix.</strong> Visit <em>Users → Manage Roles</em> and grant the user <code>employer_team</code> first. Then return to their user-edit page — the Linked Employers panel will be visible.</p>
+              <p><strong>Fix.</strong> Visit <em>Users → Manage Roles</em> and grant the user <code>employer_team</code> first. Then return to their user-edit page - the Linked Employers panel will be visible.</p>
             </div>
           </div>
         </div>
@@ -1975,7 +1975,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-9-content" role="region" aria-labelledby="faq-9-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> Three common reasons. (a) The closing date has already passed — the daily <code>careernest_expire_jobs</code> cron auto-expires jobs past their <code>_closing_date</code>. (b) The job status is <code>draft</code> rather than <code>publish</code>. (c) The owning employer is still in <code>pending</code> or <code>declined</code> status — only jobs from <code>approved</code> employers appear on the public board.</p>
+              <p><strong>Cause.</strong> Three common reasons. (a) The closing date has already passed - the daily <code>careernest_expire_jobs</code> cron auto-expires jobs past their <code>_closing_date</code>. (b) The job status is <code>draft</code> rather than <code>publish</code>. (c) The owning employer is still in <code>pending</code> or <code>declined</code> status - only jobs from <code>approved</code> employers appear on the public board.</p>
               <p><strong>Fix.</strong> Verify all three: extend the closing date, publish the job, and confirm the employer has been approved in wp-admin.</p>
             </div>
           </div>
@@ -1988,7 +1988,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-10-content" role="region" aria-labelledby="faq-10-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> Moved to a dedicated admin page in 1.17.0. The user-edit-screen approach hit the same WP timing quirk described in FAQ #2 — every form save called <code>set_role()</code> which wiped the additional roles we'd just granted.</p>
+              <p><strong>Cause.</strong> Moved to a dedicated admin page in 1.17.0. The user-edit-screen approach hit the same WP timing quirk described in FAQ #2 - every form save called <code>set_role()</code> which wiped the additional roles we'd just granted.</p>
               <p><strong>Fix.</strong> Use <em>Users → Manage Roles</em> instead. The dedicated page is AJAX-driven (via <code>cn_toggle_user_role</code>) and calls <code>add_role()</code> / <code>remove_role()</code> directly, bypassing <code>edit_user()</code> and its <code>set_role()</code> wipe entirely.</p>
             </div>
           </div>
@@ -2041,7 +2041,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
         </div>
         <div class="timeline-item">
           <span class="timeline-version">v1.14.0</span>
-          <div class="timeline-body">Multi-employer linking inverse-view panel on the user-edit screen. Reuses the existing <code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> AJAX endpoints — no new server-side logic.</div>
+          <div class="timeline-body">Multi-employer linking inverse-view panel on the user-edit screen. Reuses the existing <code>cn_add_employer_owner</code> / <code>cn_remove_employer_owner</code> AJAX endpoints - no new server-side logic.</div>
           <div class="timeline-tags"><span class="pill added">Added</span></div>
         </div>
         <div class="timeline-item">
@@ -2055,13 +2055,13 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           <div class="timeline-tags"><span class="pill changed">Changed</span></div>
         </div>
         <div class="timeline-item legacy">
-          <span class="timeline-version">v1.10.x – 1.12.x</span>
+          <span class="timeline-version">v1.10.x - 1.12.x</span>
           <div class="timeline-body">Mobile responsiveness bundles. Sidebar overflow fix (<code>grid-template-columns: minmax(0, 2fr) minmax(0, 1fr)</code>), dashboard header made responsive, touch-target sizing across both dashboards.</div>
           <div class="timeline-tags"><span class="pill changed">Changed</span></div>
         </div>
         <div class="timeline-item legacy">
           <span class="timeline-version">v1.9.0</span>
-          <div class="timeline-body">Email Template Visual Editor — 3-panel admin UI (sidebar / TinyMCE / live preview iframe). Per-template AJAX save, reset-to-default, send-test-email.</div>
+          <div class="timeline-body">Email Template Visual Editor - 3-panel admin UI (sidebar / TinyMCE / live preview iframe). Per-template AJAX save, reset-to-default, send-test-email.</div>
           <div class="timeline-tags"><span class="pill added">Added</span></div>
         </div>
         <div class="timeline-item legacy">
@@ -2071,7 +2071,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
         </div>
         <div class="timeline-item legacy">
           <span class="timeline-version">v1.7.x</span>
-          <div class="timeline-body">OAuth social login — Google + LinkedIn flows, role chooser for new users, avatar fetch, GDPR Personal Data Exporter and Eraser integration.</div>
+          <div class="timeline-body">OAuth social login - Google + LinkedIn flows, role chooser for new users, avatar fetch, GDPR Personal Data Exporter and Eraser integration.</div>
           <div class="timeline-tags"><span class="pill added">Added</span></div>
         </div>
         <div class="timeline-item legacy">
@@ -2124,13 +2124,13 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
       </div>
 
       <h3>A note on white-labelling</h3>
-      <p>CareerNest is intentionally white-label. The plugin name, logo, colours, and email sender details that appear to your end users can all be overridden from <em>Settings → CareerNest Settings → Branding / Appearance</em>. Nothing in the customer-facing experience needs to mention "CareerNest" — your platform can carry your brand entirely.</p>
+      <p>CareerNest is intentionally white-label. The plugin name, logo, colours, and email sender details that appear to your end users can all be overridden from <em>Settings → CareerNest Settings → Branding / Appearance</em>. Nothing in the customer-facing experience needs to mention "CareerNest" - your platform can carry your brand entirely.</p>
       <p>If you're documenting your own deployment for your users, feel free to fork this manual and rebrand it. Everything below the surface is yours to relabel.</p>
 
       <hr>
 
       <p style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-top:var(--space-8);">
-        Thanks for using CareerNest — and good luck with your careers platform.
+        Thanks for using CareerNest - and good luck with your careers platform.
       </p>
     </section>
 
@@ -2153,15 +2153,15 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
 
 <script>
 /* ========================================================================
-   CareerNest User Manual — vanilla JS
+   CareerNest User Manual - vanilla JS
    ========================================================================
    Sections:
      1. Theme Toggle (light/dark + localStorage)
      2. Mobile Drawer (sidebar slide-in)
      3. Smooth Scroll + TOC Active Highlighting (IntersectionObserver)
      4. Live Search (debounced)
-     5. Accordion (FAQ — single-open, ARIA)
-     6. Tabs (Configuration — keyboard accessible)
+     5. Accordion (FAQ - single-open, ARIA)
+     6. Tabs (Configuration - keyboard accessible)
      7. Copy-Code Buttons (Clipboard API)
      8. Back-to-Top
      9. Syntax Highlighter (hand-rolled, PHP)
@@ -2352,7 +2352,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
   }
 
   /* ----------------------------------------------------------------------
-     5. ACCORDION (FAQ — single-open, ARIA)
+     5. ACCORDION (FAQ - single-open, ARIA)
      ---------------------------------------------------------------------- */
   const accordionTriggers = document.querySelectorAll('.accordion-trigger');
   accordionTriggers.forEach(function (trigger) {
@@ -2374,7 +2374,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
   });
 
   /* ----------------------------------------------------------------------
-     6. TABS (Configuration — arrow-key navigation, ARIA)
+     6. TABS (Configuration - arrow-key navigation, ARIA)
      ---------------------------------------------------------------------- */
   const tablists = document.querySelectorAll('[role="tablist"]');
   tablists.forEach(function (tablist) {
@@ -2460,7 +2460,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
   }
 
   /* ----------------------------------------------------------------------
-     9. SYNTAX HIGHLIGHTER (hand-rolled, PHP only — no external dependency)
+     9. SYNTAX HIGHLIGHTER (hand-rolled, PHP only - no external dependency)
      ----------------------------------------------------------------------
      Strategy: regex-based tokenizer that handles comments first (so they
      "eat" any keyword-looking content inside them), then strings, then
@@ -2494,7 +2494,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
       const ch = src[i];
       const next = src[i + 1];
 
-      // /* … */ block comment
+      // /* ... */ block comment
       if (ch === '/' && next === '*') {
         const end = src.indexOf('*/', i + 2);
         const stop = end === -1 ? N : end + 2;
@@ -2515,7 +2515,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
         pushToken(i, j, 'hl-comment');
         i = j; continue;
       }
-      // Strings — single or double quoted (with escape handling)
+      // Strings - single or double quoted (with escape handling)
       if (ch === '"' || ch === "'") {
         const quote = ch;
         let j = i + 1;
@@ -2540,13 +2540,13 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
         while (j < N && /[A-Za-z0-9_]/.test(src[j])) j++;
         if (j > i + 1) { pushToken(i, j, 'hl-variable'); i = j; continue; }
       }
-      // Identifiers — could be keyword, function call, or plain
+      // Identifiers - could be keyword, function call, or plain
       if (/[A-Za-z_\\]/.test(ch)) {
         let j = i;
         while (j < N && /[A-Za-z0-9_\\]/.test(src[j])) j++;
         const ident = src.slice(i, j);
         const isKeyword = PHP_KEYWORDS.indexOf(ident.toLowerCase()) !== -1;
-        // Function call detection — peek past whitespace for '('
+        // Function call detection - peek past whitespace for '('
         let k = j;
         while (k < N && /\s/.test(src[k])) k++;
         const isCall = !isKeyword && src[k] === '(';
