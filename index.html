@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CareerNest - User Manual v1.17.4</title>
+<title>CareerNest - User Manual v1.17.5</title>
 <meta name="description" content="The official user manual for CareerNest - a standalone WordPress job-portal plugin. Covers installation, configuration, features, developer reference, troubleshooting, and full changelog.">
 <meta name="theme-color" content="#FF8200">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1028,7 +1028,7 @@ section.search-hidden { display: none; }
   }
   .hero { border-bottom: 1px solid #000; page-break-after: always; padding: 2rem 0; }
   .hero::after {
-    content: 'Printed from the official CareerNest User Manual - v1.17.4';
+    content: 'Printed from the official CareerNest User Manual - v1.17.5';
     display: block;
     margin-top: 2rem;
     font-size: 0.9rem;
@@ -1049,7 +1049,7 @@ section.search-hidden { display: none; }
     <a href="#hero" class="brand" aria-label="CareerNest user manual home">
       <span class="brand-mark" aria-hidden="true">C</span>
       <span>CareerNest</span>
-      <span class="topbar-version">v1.17.4</span>
+      <span class="topbar-version">v1.17.5</span>
     </a>
 
     <div class="topbar-search" role="search">
@@ -1125,12 +1125,12 @@ section.search-hidden { display: none; }
          1. HERO
          ========================================================== -->
     <section id="hero" class="hero">
-      <span class="hero-eyebrow">Official User Manual · Version 1.17.4</span>
+      <span class="hero-eyebrow">Official User Manual · Version 1.17.5</span>
       <h1>CareerNest</h1>
       <p class="hero-tagline">A standalone WordPress job-portal plugin that turns any WordPress site into a fully-featured careers platform - job postings, employer accounts, applicant profiles, and applications - built entirely on WordPress core APIs with zero third-party dependencies.</p>
       <div class="hero-meta">
         <span>📘 Last updated: 18 May 2026</span>
-        <span>🏷️ Documents version 1.17.4</span>
+        <span>🏷️ Documents version 1.17.5</span>
         <span>👤 By Rohan T George · Blue Vineyard</span>
       </div>
       <p class="hero-description">This manual walks site owners, hiring teams, and developers through every aspect of CareerNest - from a five-minute first install to extending the plugin with custom theme templates. Every setting, shortcode, hook, and FAQ is documented in full. Use the sidebar (or the search box) to jump straight to what you need.</p>
@@ -1493,15 +1493,15 @@ section.search-hidden { display: none; }
           <li><strong>Keyword</strong> - searches job title + description content.</li>
           <li><strong>Category</strong> - taxonomy filter, multi-select.</li>
           <li><strong>Job type</strong> - Full-time, Part-time, Contract, Casual.</li>
-          <li><strong>Location</strong> - Places autocomplete on the input. Hidden lat/lng power the radius search.</li>
-          <li><strong>Radius</strong> - slider, 0 to 100 km. <em>0 = "Any distance"</em> shows every job sorted by distance from the searched location (no geographic cut-off).</li>
+          <li><strong>Location</strong> - Places autocomplete on the input. The filter strategy is chosen automatically based on what the user picked: a country returns every job (no geographic cut-off), a state returns every job inside the state's bounding box, a city or street address uses radius-based proximity.</li>
+          <li><strong>Radius</strong> - slider, 0 to 100 km. Only shown for city- and address-level picks. <em>0 = "Any distance"</em> shows every job in the unfiltered result set. Country and state picks hide the radius slider entirely (it's not meaningful at those scopes).</li>
           <li><strong>Employer</strong> - filter to a specific company.</li>
           <li><strong>Salary range</strong> - dual-handle slider.</li>
           <li><strong>Date posted</strong> - last 24 h, week, month, all time.</li>
         </ul>
 
         <h4>Distance badges</h4>
-        <p>When the user provides a location, every result card gets a distance badge ("5 km from your search", "320 km away") computed via the Haversine formula on the server. Results are sorted by distance ascending unless another sort is selected.</p>
+        <p>Per-card "X km" distance badges appear only when the user picked a city- or address-level location AND selected a specific radius. They're suppressed for country and state picks, and for the "Any distance" slider position, because a distance from a country or state centroid is meaningless and a free-floating distance with no chosen radius is just noise. The badge itself is computed via the Haversine formula on the server.</p>
 
         <h4>Bookmarks, view tracking, external-click tracking</h4>
         <p>Logged-in users can bookmark jobs from the result card or the single-job page. View counts and external-click counts (for jobs configured with an external apply URL) are tracked transparently. Aggregated stats are visible to the owning employer on the employer dashboard.</p>
@@ -1871,8 +1871,8 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
           </button>
           <div class="accordion-content" id="faq-1-content" role="region" aria-labelledby="faq-1-trigger">
             <div class="accordion-content-inner">
-              <p><strong>Cause.</strong> Two common culprits. First: jobs were saved without latitude/longitude - every keystroke in the address field clears the saved coordinates (the plugin can't be certain the new text still matches the previously-resolved place). Toggle <em>Settings → General → Debug: Show Coordinates</em> ON to spot jobs missing coords on the job board. Second (resolved in 1.17.4): the legacy 100 km cap on "Any distance" was silently bounding country-level searches.</p>
-              <p><strong>Fix.</strong> For affected jobs, edit each one and re-pick the address from the Places autocomplete dropdown (don't type it). For the 100 km cap, upgrade to 1.17.4+ - "Any distance" now applies no SQL geo filter, letting the post-query haversine pass handle distance badges and sorting across the entire result set.</p>
+              <p><strong>Cause.</strong> Three common culprits. First: jobs were saved without latitude/longitude - every keystroke in the address field clears the saved coordinates (the plugin can't be certain the new text still matches the previously-resolved place). Toggle <em>Settings → General → Debug: Show Coordinates</em> ON to spot jobs missing coords on the job board. Second (resolved in 1.17.4): the legacy 100 km cap on "Any distance" was silently bounding country-level searches. Third (resolved in 1.17.5): state-level searches like "New South Wales" were treating the state's centroid as a point and applying a radius around it, which missed jobs at the state's edges.</p>
+              <p><strong>Fix.</strong> For affected jobs, edit each one and re-pick the address from the Places autocomplete dropdown (don't type it). Upgrade to 1.17.5+ for the geo-filter overhaul: country picks apply no SQL geo filter (returns every job), state picks filter by the state's actual bounding box (so every job inside the state shows regardless of where it sits within it), city and address picks keep the existing radius behaviour.</p>
             </div>
           </div>
         </div>
@@ -2005,6 +2005,11 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
 
       <div class="timeline">
         <div class="timeline-item current">
+          <span class="timeline-version">v1.17.5</span>
+          <div class="timeline-body">Location filter is now granularity-aware. The Places autocomplete result is classified as country, state, city, or address, and the server picks a strategy per type. Country picks apply no SQL geo filter. State picks filter by Google's viewport bounding box (replacing the old centroid-plus-radius approach that missed jobs at state edges). City and address picks keep the existing radius behaviour. Per-card distance badges, the distance chip, and the radius slider only appear for city or address picks with a specific radius set - country, state, and "Any distance" all suppress them.</div>
+          <div class="timeline-tags"><span class="pill changed">Changed</span><span class="pill fixed">Fixed</span></div>
+        </div>
+        <div class="timeline-item">
           <span class="timeline-version">v1.17.4</span>
           <div class="timeline-body">Location filter: "Any distance" radius=0 now skips the SQL bounding-box cap (was silently 100 km, breaking country-level searches). The post-query Haversine pass still applies distance badges and sorting across the whole result set.</div>
           <div class="timeline-tags"><span class="pill fixed">Fixed</span></div>
@@ -2119,7 +2124,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <h4>Version documented</h4>
-          <p><strong>1.17.4</strong> · Last updated 18 May 2026</p>
+          <p><strong>1.17.5</strong> · Last updated 18 May 2026</p>
         </article>
       </div>
 
@@ -2139,7 +2144,7 @@ CareerNest\Email\Mailer::send_admin_notification(string $subject, string $messag
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <div>CareerNest User Manual · v1.17.4 · Built with care by Blue Vineyard</div>
+    <div>CareerNest User Manual · v1.17.5 · Built with care by Blue Vineyard</div>
     <div><a href="#hero">Back to top ↑</a></div>
   </div>
 </footer>
